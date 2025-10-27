@@ -1,0 +1,25 @@
+{
+  "title": "Stakeholder Response",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Response.Stakeholder"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "answer"
+      ]
+    }
+  ]
+}

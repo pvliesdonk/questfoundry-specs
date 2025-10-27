@@ -1,0 +1,26 @@
+{
+  "title": "Release Blocked",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Release.Blocked"
+        },
+        "artifact_uri": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact_uri",
+        "reason"
+      ]
+    }
+  ]
+}

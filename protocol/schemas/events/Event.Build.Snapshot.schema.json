@@ -1,0 +1,25 @@
+{
+  "title": "Build Snapshot",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Build.Snapshot"
+        },
+        "artifact_uri": {
+          "type": "string"
+        },
+        "sot_hash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact_uri"
+      ]
+    }
+  ]
+}

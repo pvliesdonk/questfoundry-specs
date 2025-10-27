@@ -1,0 +1,26 @@
+{
+  "$id": "command_envelope.json",
+  "title": "Command Envelope",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "command_id": {
+          "type": "string"
+        },
+        "continuity_tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "command_id"
+      ]
+    }
+  ]
+}

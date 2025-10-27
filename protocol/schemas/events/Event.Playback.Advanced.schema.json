@@ -1,0 +1,26 @@
+{
+  "title": "Playback Advanced",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Playback.Advanced"
+        },
+        "section_id": {
+          "type": "string"
+        },
+        "choice_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "section_id",
+        "choice_id"
+      ]
+    }
+  ]
+}

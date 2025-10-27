@@ -1,0 +1,6 @@
+{
+  "mode": "release",
+  "allow_transient_improv": true,
+  "feedback_channel": false,
+  "max_deviation_radius": 0.15
+}

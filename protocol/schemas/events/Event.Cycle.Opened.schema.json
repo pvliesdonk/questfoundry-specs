@@ -1,0 +1,28 @@
+{
+  "title": "Cycle Opened",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Cycle.Opened"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "source_trace": {
+          "type": "string"
+        },
+        "context": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "reason"
+      ]
+    }
+  ]
+}

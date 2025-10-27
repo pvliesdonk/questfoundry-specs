@@ -1,0 +1,22 @@
+{
+  "shards": {
+    "codex": {
+      "entries": []
+    },
+    "narrative": {
+      "scenes": [],
+      "choices": [],
+      "meta": {
+        "transient": false,
+        "persist": true,
+        "origin": "bootstrap"
+      }
+    },
+    "structure": {
+      "acts": 3,
+      "beats": []
+    },
+    "renders_index": {},
+    "audio_index": {}
+  }
+}

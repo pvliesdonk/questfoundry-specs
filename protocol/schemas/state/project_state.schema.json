@@ -1,0 +1,145 @@
+{
+  "$id": "project_state.schema.json",
+  "title": "Project State",
+  "type": "object",
+  "definitions": {
+    "codexEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ]
+    },
+    "choice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "leads_to": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ]
+    },
+    "section": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/choice"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "content"
+      ]
+    },
+    "narrativeShard": {
+      "type": "object",
+      "properties": {
+        "scenes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/section"
+          }
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/choice"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "transient": {
+              "type": "boolean"
+            },
+            "persist": {
+              "type": "boolean"
+            },
+            "origin": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "shards": {
+      "type": "object",
+      "properties": {
+        "codex": {
+          "type": "object",
+          "properties": {
+            "entries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/codexEntry"
+              }
+            }
+          }
+        },
+        "narrative": {
+          "$ref": "#/definitions/narrativeShard"
+        },
+        "structure": {
+          "type": "object",
+          "properties": {
+            "acts": {
+              "type": "integer"
+            },
+            "beats": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "renders_index": {
+          "type": "object"
+        },
+        "audio_index": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

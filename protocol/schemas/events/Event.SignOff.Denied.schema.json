@@ -1,0 +1,35 @@
+{
+  "title": "SignOff Denied",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.SignOff.Denied"
+        },
+        "artifact_uri": {
+          "type": "string"
+        },
+        "invariants_checked": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decision": {
+          "type": "string"
+        },
+        "justification": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact_uri",
+        "decision"
+      ]
+    }
+  ]
+}

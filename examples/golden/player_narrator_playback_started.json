@@ -1,0 +1,9 @@
+{
+  "protocol_version": "1.0",
+  "message_type": "Event.Playback.Started",
+  "message_id": "event.playback.started-golden",
+  "trace_id": "trace-golden",
+  "created_at": "2025-10-26T20:10:00Z",
+  "sender": "player_narrator",
+  "section_id": "sec-001"
+}

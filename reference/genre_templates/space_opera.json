@@ -1,0 +1,22 @@
+{
+  "id": "space_opera",
+  "defaults": {
+    "size": "medium",
+    "tone": "balanced"
+  },
+  "setting": {
+    "name": "Ecliptic Spire",
+    "motifs": [
+      "smuggling",
+      "politics",
+      "vacuum rituals"
+    ]
+  },
+  "protagonist": {
+    "archetype": "reluctant courier"
+  },
+  "structure": {
+    "acts": 3,
+    "typical_nodes": 24
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "protocol_version": "1.0",
+  "message_type": "Event.Cycle.Opened",
+  "message_id": "event.cycle.opened-golden",
+  "trace_id": "trace-golden",
+  "created_at": "2025-10-26T20:10:00Z",
+  "sender": "orchestrator",
+  "reason": "player_narrator_feedback",
+  "source_trace": "t-pn-01",
+  "context": {
+    "category": "new-content",
+    "message": "Propose stealth route"
+  }
+}

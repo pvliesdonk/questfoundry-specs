@@ -1,0 +1,22 @@
+{
+  "id": "station_noir",
+  "defaults": {
+    "size": "short",
+    "tone": "grim"
+  },
+  "setting": {
+    "name": "Dock Nine",
+    "motifs": [
+      "missing cargo",
+      "silent alarms",
+      "paid silence"
+    ]
+  },
+  "protagonist": {
+    "archetype": "burnt-out inspector"
+  },
+  "structure": {
+    "acts": 3,
+    "typical_nodes": 14
+  }
+}

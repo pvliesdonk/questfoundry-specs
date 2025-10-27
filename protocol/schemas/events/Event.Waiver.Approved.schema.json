@@ -1,0 +1,40 @@
+{
+  "title": "Waiver Approved",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Waiver.Approved"
+        },
+        "invariant": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "responsible": {
+          "type": "string"
+        },
+        "review_after": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "invariant",
+        "scope",
+        "reason"
+      ]
+    }
+  ]
+}

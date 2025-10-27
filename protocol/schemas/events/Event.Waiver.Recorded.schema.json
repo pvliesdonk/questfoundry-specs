@@ -1,0 +1,33 @@
+{
+  "title": "Waiver Recorded",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Waiver.Recorded"
+        },
+        "approved": {
+          "type": "boolean"
+        },
+        "invariant": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "approved",
+        "invariant",
+        "scope"
+      ]
+    }
+  ]
+}

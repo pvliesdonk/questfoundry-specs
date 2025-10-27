@@ -1,0 +1,22 @@
+{
+  "title": "Playback SyncDrift",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Playback.SyncDrift"
+        },
+        "delta_ms": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "delta_ms"
+      ]
+    }
+  ]
+}

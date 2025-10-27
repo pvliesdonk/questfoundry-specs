@@ -1,0 +1,39 @@
+{
+  "title": "Validation Report",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Validation.Report"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "warn",
+            "fail"
+          ]
+        },
+        "sot_ref": {
+          "type": "string"
+        },
+        "sot_hash": {
+          "type": "string"
+        },
+        "violations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "required": [
+        "status"
+      ]
+    }
+  ]
+}

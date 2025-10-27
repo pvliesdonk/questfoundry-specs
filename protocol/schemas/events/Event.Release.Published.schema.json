@@ -1,0 +1,25 @@
+{
+  "title": "Release Published",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Release.Published"
+        },
+        "artifact_uri": {
+          "type": "string"
+        },
+        "provenance": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "artifact_uri"
+      ]
+    }
+  ]
+}

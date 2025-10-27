@@ -1,0 +1,29 @@
+{
+  "title": "Stakeholder Query",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Query.Stakeholder"
+        },
+        "category": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "category",
+        "question"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Playback Completed",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Playback.Completed"
+        },
+        "ending_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ending_id"
+      ]
+    }
+  ]
+}

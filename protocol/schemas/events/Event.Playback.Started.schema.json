@@ -1,0 +1,22 @@
+{
+  "title": "Playback Started",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Playback.Started"
+        },
+        "section_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "section_id"
+      ]
+    }
+  ]
+}

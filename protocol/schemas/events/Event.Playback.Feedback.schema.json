@@ -1,0 +1,26 @@
+{
+  "title": "Playback Feedback",
+  "allOf": [
+    {
+      "$ref": "../defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "const": "Event.Playback.Feedback"
+        },
+        "category": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "category",
+        "message"
+      ]
+    }
+  ]
+}
