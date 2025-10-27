@@ -22,10 +22,7 @@
           }
         }
       },
-      "required": [
-        "id",
-        "text"
-      ]
+      "required": ["id", "text"]
     },
     "choice": {
       "type": "object",
@@ -40,10 +37,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "text"
-      ]
+      "required": ["id", "text"]
     },
     "section": {
       "type": "object",
@@ -64,10 +58,7 @@
           }
         }
       },
-      "required": [
-        "id",
-        "content"
-      ]
+      "required": ["id", "content"]
     },
     "narrativeShard": {
       "type": "object",

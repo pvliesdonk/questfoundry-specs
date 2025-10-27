@@ -26,10 +26,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "artifact_uri",
-        "decision"
-      ]
+      "required": ["artifact_uri", "decision"]
     }
   ]
 }

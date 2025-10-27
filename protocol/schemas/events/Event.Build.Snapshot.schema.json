@@ -17,9 +17,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "artifact_uri"
-      ]
+      "required": ["artifact_uri"]
     }
   ]
 }

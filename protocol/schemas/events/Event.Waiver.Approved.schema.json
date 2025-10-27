@@ -30,11 +30,7 @@
           "format": "date-time"
         }
       },
-      "required": [
-        "invariant",
-        "scope",
-        "reason"
-      ]
+      "required": ["invariant", "scope", "reason"]
     }
   ]
 }

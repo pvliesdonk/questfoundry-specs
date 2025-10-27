@@ -17,10 +17,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "section_id",
-        "choice_id"
-      ]
+      "required": ["section_id", "choice_id"]
     }
   ]
 }

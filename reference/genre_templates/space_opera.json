@@ -6,11 +6,7 @@
   },
   "setting": {
     "name": "Ecliptic Spire",
-    "motifs": [
-      "smuggling",
-      "politics",
-      "vacuum rituals"
-    ]
+    "motifs": ["smuggling", "politics", "vacuum rituals"]
   },
   "protagonist": {
     "archetype": "reluctant courier"

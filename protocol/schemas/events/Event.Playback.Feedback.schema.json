@@ -17,10 +17,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "category",
-        "message"
-      ]
+      "required": ["category", "message"]
     }
   ]
 }

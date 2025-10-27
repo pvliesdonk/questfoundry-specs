@@ -12,11 +12,7 @@
         },
         "status": {
           "type": "string",
-          "enum": [
-            "ok",
-            "warn",
-            "fail"
-          ]
+          "enum": ["ok", "warn", "fail"]
         },
         "sot_ref": {
           "type": "string"
@@ -31,9 +27,7 @@
           }
         }
       },
-      "required": [
-        "status"
-      ]
+      "required": ["status"]
     }
   ]
 }

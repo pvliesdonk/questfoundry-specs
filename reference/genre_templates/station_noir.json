@@ -6,11 +6,7 @@
   },
   "setting": {
     "name": "Dock Nine",
-    "motifs": [
-      "missing cargo",
-      "silent alarms",
-      "paid silence"
-    ]
+    "motifs": ["missing cargo", "silent alarms", "paid silence"]
   },
   "protagonist": {
     "archetype": "burnt-out inspector"

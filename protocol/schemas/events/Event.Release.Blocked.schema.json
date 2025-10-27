@@ -17,10 +17,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "artifact_uri",
-        "reason"
-      ]
+      "required": ["artifact_uri", "reason"]
     }
   ]
 }
