@@ -13,6 +13,8 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
+import subprocess
 from collections import defaultdict
 from copy import deepcopy
 from pathlib import Path
@@ -131,6 +133,25 @@ def write_file(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
+def format_with_prettier(paths: List[Path]) -> None:
+    if not paths:
+        return
+    prettier = shutil.which("prettier")
+    npx = shutil.which("npx")
+    command: List[str] | None = None
+    path_args = [str(path) for path in paths]
+    if prettier:
+        command = [prettier, "--write", *path_args]
+    elif npx:
+        command = [npx, "--yes", "prettier@3.3.2", "--write", *path_args]
+    if command is None:
+        raise RuntimeError(
+            "Prettier is required to format generated JSON. Install Node.js (providing either "
+            "'prettier' or 'npx') and re-run the generator."
+        )
+    subprocess.run(command, check=True)
+
+
 def build_bundle() -> Tuple[dict, Dict[str, dict]]:
     schema_files = discover_schema_files()
     ref_map = build_reference_map(schema_files)
@@ -223,6 +244,7 @@ def main():
         write_file(DIST_DIR / "questfoundry.bundle.schema.json", format_json(bundle))
         deref_bundle = dereference(bundle, bundle["$defs"])
         write_file(DIST_DIR / "questfoundry.bundle.deref.schema.json", format_json(deref_bundle))
+        format_with_prettier(sorted(DIST_DIR.glob("*.json")))
 
     graphviz_src = generate_graphviz(defs, edges)
     write_file(DIST_DIR / "questfoundry-schema.dot", graphviz_src)

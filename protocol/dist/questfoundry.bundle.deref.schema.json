@@ -29,11 +29,7 @@
             },
             "params": {
               "additionalProperties": {
-                "type": [
-                  "string",
-                  "number",
-                  "boolean"
-                ]
+                "type": ["string", "number", "boolean"]
               },
               "description": "Engine-specific parameters (sampler, steps, cfg, temperature, etc.).",
               "type": "object"
@@ -43,18 +39,12 @@
               "type": "integer"
             }
           },
-          "required": [
-            "engine",
-            "seed"
-          ],
+          "required": ["engine", "seed"],
           "type": "object"
         },
         "kind": {
           "description": "Render type.",
-          "enum": [
-            "image",
-            "audio"
-          ],
+          "enum": ["image", "audio"],
           "type": "string"
         },
         "path": {
@@ -103,12 +93,7 @@
           "type": "object"
         }
       },
-      "required": [
-        "kind",
-        "path",
-        "checksum",
-        "generator"
-      ],
+      "required": ["kind", "path", "checksum", "generator"],
       "title": "Render Record (Image/Audio)",
       "type": "object"
     },
@@ -142,11 +127,7 @@
               },
               "kind": {
                 "description": "Cue category.",
-                "enum": [
-                  "music",
-                  "ambient",
-                  "sfx"
-                ],
+                "enum": ["music", "ambient", "sfx"],
                 "type": "string"
               },
               "notes": {
@@ -182,10 +163,7 @@
                         "type": "integer"
                       }
                     },
-                    "required": [
-                      "start_ms",
-                      "end_ms"
-                    ],
+                    "required": ["start_ms", "end_ms"],
                     "type": "object"
                   },
                   "offset_ms": {
@@ -205,11 +183,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "id",
-              "kind",
-              "target"
-            ],
+            "required": ["id", "kind", "target"],
             "title": "Audio Cue",
             "type": "object"
           },
@@ -223,9 +197,7 @@
           "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
         }
       },
-      "required": [
-        "cues"
-      ],
+      "required": ["cues"],
       "title": "Audio Plan",
       "type": "object"
     },
@@ -262,12 +234,7 @@
               },
               "object": {
                 "description": "Value of the claim.",
-                "type": [
-                  "string",
-                  "number",
-                  "boolean",
-                  "null"
-                ]
+                "type": ["string", "number", "boolean", "null"]
               },
               "predicate": {
                 "description": "Relationship or property name.",
@@ -279,11 +246,7 @@
                   "properties": {
                     "kind": {
                       "description": "Source type.",
-                      "enum": [
-                        "citation",
-                        "section",
-                        "external"
-                      ],
+                      "enum": ["citation", "section", "external"],
                       "type": "string"
                     },
                     "ref": {
@@ -295,21 +258,14 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "kind",
-                    "ref"
-                  ],
+                  "required": ["kind", "ref"],
                   "type": "object"
                 },
                 "type": "array"
               },
               "status": {
                 "description": "Current standing of the claim.",
-                "enum": [
-                  "asserted",
-                  "disputed",
-                  "retracted"
-                ],
+                "enum": ["asserted", "disputed", "retracted"],
                 "type": "string"
               },
               "subject": {
@@ -317,12 +273,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "id",
-              "subject",
-              "predicate",
-              "status"
-            ],
+            "required": ["id", "subject", "predicate", "status"],
             "title": "Claim",
             "type": "object"
           },
@@ -356,9 +307,7 @@
           "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
         }
       },
-      "required": [
-        "claims"
-      ],
+      "required": ["claims"],
       "title": "Canon / Claim Registry",
       "type": "object"
     },
@@ -431,9 +380,7 @@
                   "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
                 }
               },
-              "required": [
-                "command_id"
-              ],
+              "required": ["command_id"],
               "type": "object"
             }
           ],
@@ -453,20 +400,11 @@
             },
             "scope": {
               "description": "Review scope.",
-              "enum": [
-                "manuscript",
-                "art",
-                "audio",
-                "package",
-                "all"
-              ],
+              "enum": ["manuscript", "art", "audio", "package", "all"],
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "scope"
-          ],
+          "required": ["message_type", "scope"],
           "type": "object"
         }
       ],
@@ -542,9 +480,7 @@
                   "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
                 }
               },
-              "required": [
-                "command_id"
-              ],
+              "required": ["command_id"],
               "type": "object"
             }
           ],
@@ -574,11 +510,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "title",
-            "scope"
-          ],
+          "required": ["message_type", "title", "scope"],
           "type": "object"
         }
       ],
@@ -654,9 +586,7 @@
                   "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
                 }
               },
-              "required": [
-                "command_id"
-              ],
+              "required": ["command_id"],
               "type": "object"
             }
           ],
@@ -679,11 +609,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "from_section_id",
-            "choice_id"
-          ],
+          "required": ["message_type", "from_section_id", "choice_id"],
           "type": "object"
         }
       ],
@@ -759,9 +685,7 @@
                   "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
                 }
               },
-              "required": [
-                "command_id"
-              ],
+              "required": ["command_id"],
               "type": "object"
             }
           ],
@@ -777,13 +701,7 @@
             },
             "reason": {
               "description": "Why the jump occurs.",
-              "enum": [
-                "debug",
-                "deterministic",
-                "manual_override",
-                "recovery",
-                "other"
-              ],
+              "enum": ["debug", "deterministic", "manual_override", "recovery", "other"],
               "type": "string"
             },
             "to_section_id": {
@@ -791,10 +709,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "to_section_id"
-          ],
+          "required": ["message_type", "to_section_id"],
           "type": "object"
         }
       ],
@@ -870,9 +785,7 @@
                   "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
                 }
               },
-              "required": [
-                "command_id"
-              ],
+              "required": ["command_id"],
               "type": "object"
             }
           ],
@@ -891,11 +804,7 @@
             },
             "policy_mode": {
               "description": "Narration mode.",
-              "enum": [
-                "release",
-                "debug",
-                "deterministic"
-              ],
+              "enum": ["release", "debug", "deterministic"],
               "type": "string"
             },
             "section_id": {
@@ -908,10 +817,7 @@
               "type": "integer"
             }
           },
-          "required": [
-            "message_type",
-            "section_id"
-          ],
+          "required": ["message_type", "section_id"],
           "type": "object"
         }
       ],
@@ -987,9 +893,7 @@
                   "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
                 }
               },
-              "required": [
-                "command_id"
-              ],
+              "required": ["command_id"],
               "type": "object"
             }
           ],
@@ -1001,11 +905,7 @@
           "properties": {
             "channel": {
               "description": "Release channel.",
-              "enum": [
-                "internal",
-                "candidate",
-                "public"
-              ],
+              "enum": ["internal", "candidate", "public"],
               "type": "string"
             },
             "message_type": {
@@ -1020,11 +920,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
             }
           },
-          "required": [
-            "message_type",
-            "target_version",
-            "channel"
-          ],
+          "required": ["message_type", "target_version", "channel"],
           "type": "object"
         }
       ],
@@ -1078,13 +974,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -1095,9 +985,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "command_id"
-          ],
+          "required": ["command_id"],
           "type": "object"
         }
       ],
@@ -1114,9 +1002,7 @@
           "properties": {
             "algo": {
               "description": "Hash algorithm.",
-              "enum": [
-                "sha256"
-              ],
+              "enum": ["sha256"],
               "type": "string"
             },
             "value": {
@@ -1125,10 +1011,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "algo",
-            "value"
-          ],
+          "required": ["algo", "value"],
           "title": "Checksum",
           "type": "object"
         },
@@ -1159,9 +1042,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "created_at"
-          ],
+          "required": ["created_at"],
           "title": "Provenance",
           "type": "object"
         },
@@ -1190,11 +1071,7 @@
             },
             "extensions": {
               "additionalProperties": {
-                "type": [
-                  "string",
-                  "number",
-                  "boolean"
-                ]
+                "type": ["string", "number", "boolean"]
               },
               "description": "Free-form hints: safety modes, sampler names, temperature, etc.",
               "type": "object"
@@ -1217,9 +1094,7 @@
               "type": "integer"
             }
           },
-          "required": [
-            "seed"
-          ],
+          "required": ["seed"],
           "title": "Toolchain",
           "type": "object"
         },
@@ -1278,13 +1153,7 @@
           "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
         }
       },
-      "required": [
-        "protocol_version",
-        "message_type",
-        "message_id",
-        "created_at",
-        "sender"
-      ],
+      "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
       "title": "Message Envelope",
       "type": "object"
     },
@@ -1305,9 +1174,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "artifact_uri"
-          ],
+          "required": ["artifact_uri"],
           "type": "object"
         }
       ],
@@ -1360,13 +1227,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -1390,11 +1251,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "cycle_id",
-            "project_id"
-          ],
+          "required": ["message_type", "cycle_id", "project_id"],
           "type": "object"
         }
       ],
@@ -1448,13 +1305,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -1475,12 +1326,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "from_section_id",
-            "to_section_id",
-            "choice_id"
-          ],
+          "required": ["message_type", "from_section_id", "to_section_id", "choice_id"],
           "type": "object"
         }
       ],
@@ -1534,13 +1380,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -1559,10 +1399,7 @@
               "type": "integer"
             }
           },
-          "required": [
-            "message_type",
-            "end_section_id"
-          ],
+          "required": ["message_type", "end_section_id"],
           "type": "object"
         }
       ],
@@ -1586,10 +1423,7 @@
               "const": "Event.Playback.Feedback"
             }
           },
-          "required": [
-            "category",
-            "message"
-          ],
+          "required": ["category", "message"],
           "type": "object"
         }
       ],
@@ -1642,13 +1476,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -1663,11 +1491,7 @@
               "type": "string"
             },
             "policy_mode": {
-              "enum": [
-                "release",
-                "debug",
-                "deterministic"
-              ],
+              "enum": ["release", "debug", "deterministic"],
               "type": "string"
             },
             "section_id": {
@@ -1679,10 +1503,7 @@
               "type": "integer"
             }
           },
-          "required": [
-            "message_type",
-            "section_id"
-          ],
+          "required": ["message_type", "section_id"],
           "type": "object"
         }
       ],
@@ -1736,13 +1557,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -1753,13 +1568,7 @@
               "type": "string"
             },
             "drift_reason": {
-              "enum": [
-                "policy_improv",
-                "determinism_break",
-                "bug",
-                "manual_override",
-                "unknown"
-              ],
+              "enum": ["policy_improv", "determinism_break", "bug", "manual_override", "unknown"],
               "type": "string"
             },
             "expected_section_id": {
@@ -1773,12 +1582,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "expected_section_id",
-            "actual_section_id",
-            "drift_reason"
-          ],
+          "required": ["message_type", "expected_section_id", "actual_section_id", "drift_reason"],
           "type": "object"
         }
       ],
@@ -1832,13 +1636,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -1846,14 +1644,7 @@
           "additionalProperties": false,
           "properties": {
             "category": {
-              "enum": [
-                "rights",
-                "content_policy",
-                "safety",
-                "scope",
-                "dependencies",
-                "other"
-              ],
+              "enum": ["rights", "content_policy", "safety", "scope", "dependencies", "other"],
               "type": "string"
             },
             "message_type": {
@@ -1871,11 +1662,7 @@
               "type": "integer"
             }
           },
-          "required": [
-            "message_type",
-            "category",
-            "question"
-          ],
+          "required": ["message_type", "category", "question"],
           "type": "object"
         }
       ],
@@ -1929,13 +1716,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -1957,11 +1738,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
             }
           },
-          "required": [
-            "message_type",
-            "target_version",
-            "reasons"
-          ],
+          "required": ["message_type", "target_version", "reasons"],
           "type": "object"
         }
       ],
@@ -2015,13 +1792,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2029,11 +1800,7 @@
           "additionalProperties": false,
           "properties": {
             "channel": {
-              "enum": [
-                "internal",
-                "candidate",
-                "public"
-              ],
+              "enum": ["internal", "candidate", "public"],
               "type": "string"
             },
             "message_type": {
@@ -2047,11 +1814,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
             }
           },
-          "required": [
-            "message_type",
-            "target_version",
-            "channel"
-          ],
+          "required": ["message_type", "target_version", "channel"],
           "type": "object"
         }
       ],
@@ -2105,13 +1868,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2133,11 +1890,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
             }
           },
-          "required": [
-            "message_type",
-            "version",
-            "artifact_url"
-          ],
+          "required": ["message_type", "version", "artifact_url"],
           "type": "object"
         }
       ],
@@ -2191,13 +1944,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2205,12 +1952,7 @@
           "additionalProperties": false,
           "properties": {
             "decision": {
-              "enum": [
-                "approve",
-                "deny",
-                "defer",
-                "info"
-              ],
+              "enum": ["approve", "deny", "defer", "info"],
               "type": "string"
             },
             "in_reply_to": {
@@ -2225,11 +1967,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "in_reply_to",
-            "decision"
-          ],
+          "required": ["message_type", "in_reply_to", "decision"],
           "type": "object"
         }
       ],
@@ -2283,13 +2021,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2311,22 +2043,11 @@
               "type": "array"
             },
             "scope": {
-              "enum": [
-                "manuscript",
-                "art",
-                "audio",
-                "package",
-                "all"
-              ],
+              "enum": ["manuscript", "art", "audio", "package", "all"],
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "scope",
-            "denied_by",
-            "reasons"
-          ],
+          "required": ["message_type", "scope", "denied_by", "reasons"],
           "type": "object"
         }
       ],
@@ -2380,13 +2101,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2405,21 +2120,11 @@
               "type": "string"
             },
             "scope": {
-              "enum": [
-                "manuscript",
-                "art",
-                "audio",
-                "package",
-                "all"
-              ],
+              "enum": ["manuscript", "art", "audio", "package", "all"],
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "scope",
-            "granted_by"
-          ],
+          "required": ["message_type", "scope", "granted_by"],
           "type": "object"
         }
       ],
@@ -2473,13 +2178,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2508,19 +2207,11 @@
                     "type": "string"
                   },
                   "severity": {
-                    "enum": [
-                      "error",
-                      "warning",
-                      "info"
-                    ],
+                    "enum": ["error", "warning", "info"],
                     "type": "string"
                   }
                 },
-                "required": [
-                  "code",
-                  "severity",
-                  "message"
-                ],
+                "required": ["code", "severity", "message"],
                 "type": "object"
               },
               "type": "array"
@@ -2531,31 +2222,16 @@
             },
             "scope": {
               "description": "What was validated.",
-              "enum": [
-                "manuscript",
-                "codex",
-                "art",
-                "audio",
-                "package",
-                "state"
-              ],
+              "enum": ["manuscript", "codex", "art", "audio", "package", "state"],
               "type": "string"
             },
             "status": {
               "description": "Overall outcome.",
-              "enum": [
-                "pass",
-                "fail",
-                "warn"
-              ],
+              "enum": ["pass", "fail", "warn"],
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "scope",
-            "status"
-          ],
+          "required": ["message_type", "scope", "status"],
           "type": "object"
         }
       ],
@@ -2609,13 +2285,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2633,11 +2303,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "waiver_id",
-            "approved_by"
-          ],
+          "required": ["message_type", "waiver_id", "approved_by"],
           "type": "object"
         }
       ],
@@ -2691,13 +2357,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2721,11 +2381,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "waiver_id",
-            "denied_by"
-          ],
+          "required": ["message_type", "waiver_id", "denied_by"],
           "type": "object"
         }
       ],
@@ -2779,13 +2435,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2810,12 +2460,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "message_type",
-            "waiver_id",
-            "title",
-            "scope"
-          ],
+          "required": ["message_type", "waiver_id", "title", "scope"],
           "type": "object"
         }
       ],
@@ -2869,13 +2514,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -2928,9 +2567,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "section_id"
-              ],
+              "required": ["section_id"],
               "type": "object"
             },
             "ttl_cycles": {
@@ -2939,11 +2576,7 @@
               "type": "integer"
             }
           },
-          "required": [
-            "message_type",
-            "refs",
-            "instructions"
-          ],
+          "required": ["message_type", "refs", "instructions"],
           "type": "object"
         }
       ],
@@ -2998,13 +2631,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
             }
           },
-          "required": [
-            "protocol_version",
-            "message_type",
-            "message_id",
-            "created_at",
-            "sender"
-          ],
+          "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
           "title": "Message Envelope",
           "type": "object"
         },
@@ -3043,10 +2670,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "code",
-                  "message"
-                ],
+                "required": ["code", "message"],
                 "type": "object"
               },
               "type": "array"
@@ -3056,11 +2680,7 @@
               "type": "integer"
             }
           },
-          "required": [
-            "message_type",
-            "in_reply_to",
-            "result_path"
-          ],
+          "required": ["message_type", "in_reply_to", "result_path"],
           "type": "object"
         }
       ],
@@ -3179,9 +2799,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "section_id"
-                  ],
+                  "required": ["section_id"],
                   "type": "object"
                 },
                 "ttl_cycles": {
@@ -3190,11 +2808,7 @@
                   "type": "integer"
                 }
               },
-              "required": [
-                "message_type",
-                "refs",
-                "instructions"
-              ],
+              "required": ["message_type", "refs", "instructions"],
               "type": "object"
             }
           ],
@@ -3294,10 +2908,7 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "code",
-                      "message"
-                    ],
+                    "required": ["code", "message"],
                     "type": "object"
                   },
                   "type": "array"
@@ -3307,11 +2918,7 @@
                   "type": "integer"
                 }
               },
-              "required": [
-                "message_type",
-                "in_reply_to",
-                "result_path"
-              ],
+              "required": ["message_type", "in_reply_to", "result_path"],
               "type": "object"
             }
           ],
@@ -3396,11 +3003,7 @@
                 "type": "integer"
               }
             },
-            "required": [
-              "kind",
-              "path",
-              "checksum"
-            ],
+            "required": ["kind", "path", "checksum"],
             "type": "object"
           },
           "type": "array"
@@ -3441,13 +3044,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
             }
           },
-          "required": [
-            "project_id",
-            "slug",
-            "title",
-            "version",
-            "language"
-          ],
+          "required": ["project_id", "slug", "title", "version", "language"],
           "type": "object"
         },
         "snapshot": {
@@ -3472,10 +3069,7 @@
               "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/toolchain"
             }
           },
-          "required": [
-            "created_at",
-            "toolchain"
-          ],
+          "required": ["created_at", "toolchain"],
           "type": "object"
         },
         "stats": {
@@ -3498,11 +3092,7 @@
           "type": "object"
         }
       },
-      "required": [
-        "project",
-        "snapshot",
-        "artifacts"
-      ],
+      "required": ["project", "snapshot", "artifacts"],
       "title": "Project Manifest",
       "type": "object"
     },
@@ -3545,14 +3135,7 @@
               },
               "kind": {
                 "description": "Event kind.",
-                "enum": [
-                  "start",
-                  "advance",
-                  "jump",
-                  "complete",
-                  "drift",
-                  "note"
-                ],
+                "enum": ["start", "advance", "jump", "complete", "drift", "note"],
                 "type": "string"
               },
               "notes": {
@@ -3642,11 +3225,7 @@
                   },
                   "mode": {
                     "description": "Narration mode.",
-                    "enum": [
-                      "release",
-                      "debug",
-                      "deterministic"
-                    ],
+                    "enum": ["release", "debug", "deterministic"],
                     "type": "string"
                   },
                   "narration": {
@@ -3676,21 +3255,14 @@
                       },
                       "profanity_level": {
                         "default": "none",
-                        "enum": [
-                          "none",
-                          "mild",
-                          "moderate",
-                          "explicit"
-                        ],
+                        "enum": ["none", "mild", "moderate", "explicit"],
                         "type": "string"
                       }
                     },
                     "type": "object"
                   }
                 },
-                "required": [
-                  "mode"
-                ],
+                "required": ["mode"],
                 "title": "Player/Narrator Policy",
                 "type": "object"
               },
@@ -3702,10 +3274,7 @@
                 "description": "Timestamp of the event."
               }
             },
-            "required": [
-              "ts",
-              "kind"
-            ],
+            "required": ["ts", "kind"],
             "title": "Transcript Event",
             "type": "object"
           },
@@ -3795,11 +3364,7 @@
             },
             "mode": {
               "description": "Narration mode.",
-              "enum": [
-                "release",
-                "debug",
-                "deterministic"
-              ],
+              "enum": ["release", "debug", "deterministic"],
               "type": "string"
             },
             "narration": {
@@ -3829,21 +3394,14 @@
                 },
                 "profanity_level": {
                   "default": "none",
-                  "enum": [
-                    "none",
-                    "mild",
-                    "moderate",
-                    "explicit"
-                  ],
+                  "enum": ["none", "mild", "moderate", "explicit"],
                   "type": "string"
                 }
               },
               "type": "object"
             }
           },
-          "required": [
-            "mode"
-          ],
+          "required": ["mode"],
           "title": "Player/Narrator Policy",
           "type": "object"
         },
@@ -3859,11 +3417,7 @@
           "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
         }
       },
-      "required": [
-        "session_id",
-        "started_at",
-        "events"
-      ],
+      "required": ["session_id", "started_at", "events"],
       "title": "Playback Transcript / Session Log",
       "type": "object"
     },
@@ -3951,11 +3505,7 @@
         },
         "mode": {
           "description": "Narration mode.",
-          "enum": [
-            "release",
-            "debug",
-            "deterministic"
-          ],
+          "enum": ["release", "debug", "deterministic"],
           "type": "string"
         },
         "narration": {
@@ -3985,21 +3535,14 @@
             },
             "profanity_level": {
               "default": "none",
-              "enum": [
-                "none",
-                "mild",
-                "moderate",
-                "explicit"
-              ],
+              "enum": ["none", "mild", "moderate", "explicit"],
               "type": "string"
             }
           },
           "type": "object"
         }
       },
-      "required": [
-        "mode"
-      ],
+      "required": ["mode"],
       "title": "Player/Narrator Policy",
       "type": "object"
     },
@@ -4062,11 +3605,7 @@
               },
               "kind": {
                 "description": "State representation.",
-                "enum": [
-                  "boolean",
-                  "counter",
-                  "enum"
-                ],
+                "enum": ["boolean", "counter", "enum"],
                 "type": "string"
               },
               "notes": {
@@ -4081,15 +3620,7 @@
               },
               "scope": {
                 "description": "Where this codeword applies.",
-                "enum": [
-                  "global",
-                  "section",
-                  "act",
-                  "beat",
-                  "character",
-                  "item",
-                  "faction"
-                ],
+                "enum": ["global", "section", "act", "beat", "character", "item", "faction"],
                 "type": "string"
               },
               "title": {
@@ -4097,11 +3628,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "id",
-              "scope",
-              "kind"
-            ],
+            "required": ["id", "scope", "kind"],
             "title": "Codeword",
             "type": "object"
           },
@@ -4115,9 +3642,7 @@
           "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
         }
       },
-      "required": [
-        "entries"
-      ],
+      "required": ["entries"],
       "title": "Codeword / Flag Registry",
       "type": "object"
     },
@@ -4136,10 +3661,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "id",
-            "text"
-          ],
+          "required": ["id", "text"],
           "type": "object"
         },
         "codexEntry": {
@@ -4160,10 +3682,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "id",
-            "text"
-          ],
+          "required": ["id", "text"],
           "type": "object"
         },
         "narrativeShard": {
@@ -4215,10 +3734,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "id",
-            "content"
-          ],
+          "required": ["id", "content"],
           "type": "object"
         }
       },
