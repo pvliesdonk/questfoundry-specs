@@ -14,9 +14,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "ending_id"
-      ]
+      "required": ["ending_id"]
     }
   ]
 }

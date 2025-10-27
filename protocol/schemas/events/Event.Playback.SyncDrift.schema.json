@@ -14,9 +14,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "delta_ms"
-      ]
+      "required": ["delta_ms"]
     }
   ]
 }

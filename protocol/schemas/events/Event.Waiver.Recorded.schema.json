@@ -23,11 +23,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "approved",
-        "invariant",
-        "scope"
-      ]
+      "required": ["approved", "invariant", "scope"]
     }
   ]
 }

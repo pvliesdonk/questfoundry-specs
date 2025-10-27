@@ -20,9 +20,7 @@
           "type": "object"
         }
       },
-      "required": [
-        "reason"
-      ]
+      "required": ["reason"]
     }
   ]
 }

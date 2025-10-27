@@ -6,7 +6,5 @@
   "created_at": "2025-10-26T20:10:00Z",
   "sender": "orchestrator",
   "artifact_uri": "blob://releases/rc-0004.zip",
-  "invariants_checked": [
-    "rights.ownership"
-  ]
+  "invariants_checked": ["rights.ownership"]
 }

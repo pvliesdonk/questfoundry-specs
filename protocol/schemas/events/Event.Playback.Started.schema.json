@@ -14,9 +14,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "section_id"
-      ]
+      "required": ["section_id"]
     }
   ]
 }

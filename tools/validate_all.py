@@ -44,7 +44,8 @@ def find_schema(msg, reg):
 
 def validate(msg, schema, store):
     if jsonschema is None or schema is None: return True, "parsed"
-    resolver = jsonschema.RefResolver(base_uri='file://' + str((SCHEMAS_DIR / 'events').resolve()) + '/', referrer=schema, store=store)
+    base_uri = (SCHEMAS_DIR / "events").resolve().as_uri() + "/"
+    resolver = jsonschema.RefResolver(base_uri=base_uri, referrer=schema, store=store)
     try:
         jsonschema.validate(instance=msg, schema=schema, resolver=resolver)
         return True, "ok"

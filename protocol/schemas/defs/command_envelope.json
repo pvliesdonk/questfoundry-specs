@@ -18,9 +18,7 @@
           }
         }
       },
-      "required": [
-        "command_id"
-      ]
+      "required": ["command_id"]
     }
   ]
 }
