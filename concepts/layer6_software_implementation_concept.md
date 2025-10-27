@@ -159,8 +159,8 @@ qf quickstart [--play] [--offline] [--deterministic]
 **Authoring (First-Class Roles)**
 
 ```
-qf research | plot | lore | codex | art | render | audio
-qf validate | package | binder | wiki | pn
+qf {research|plot|lore|codex|art|render|audio}
+qf {validate|package|binder|wiki|pn}
 ```
 
 **Orchestration**
