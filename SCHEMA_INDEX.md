@@ -45,6 +45,31 @@ All `$id` fields use absolute URLs under the domain above so `$ref`s are resolva
   - Producers: orchestrator / config.
   - Consumers: narrator/player agent.
 
+### /protocol/schemas/feedback
+- **Feedback.SectionRewrite.Request.schema.json** — Guided rewrite request (section-focused) with constraints and TTL.
+- **Feedback.SectionRewrite.Response.schema.json** — Reply including `result_path`, delta metrics, and any violations.
+- **feedback.schema.json** — oneOf union of the two above (handy for validators).
+
+### /schemas/state
+- **codeword_registry.schema.json** — Canonical registry for codewords/flags, including type (boolean/counter/enum), scope,
+  defaults, conflicts, and implication rules.
+
+### /schemas/canon
+- **claim_registry.schema.json** — Structured claims about the world with sources, confidence, counters, and merge policy
+  so tools can reason about canon vs disputes.
+
+### /schemas/art
+- **render_record.schema.json** — Rich render provenance (prompts, model hash, engine params). Intended to be referenced
+  from `renders_index` or `artifacts` entries.
+
+### /schemas/audio
+- **audio_plan.schema.json** — Timing-focused plan for music/SFX aligned to narrative sections; supports loop regions and ducking.
+
+### /protocol/schemas/playback
+- **playback_transcript.schema.json** — Deterministic session log (section→choice→section) with codeword diffs and policy snapshots.
+
+---
+
 ## File Layout Suggestions
 - `/schemas` — Long-lived, versioned schemas (Cold SoT, policy, manifest, defs).
 - `/protocol` — Wire-level contracts for runtime (envelopes, commands, events).
@@ -54,5 +79,6 @@ All `$id` fields use absolute URLs under the domain above so `$ref`s are resolva
 - `toolchain.seed` is required; per-stage overrides should still record the global seed for reproducibility.
 
 ---
+
 
 *Keep this index updated when adding new Event.* or Command.* schemas; maintain 1:1 parity between governance flows (request/response) and their event mirrors.*

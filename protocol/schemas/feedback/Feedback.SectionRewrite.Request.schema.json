@@ -1,0 +1,80 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/Feedback.SectionRewrite.Request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Feedback Section Rewrite Request",
+  "description": "Guided prose rewrite request for a specific narrative section. Downstream tools should obey constraints and ttl cycles.",
+  "$comment": "Lower-layer: bridges Hot SoT (feedback loop) and Cold SoT (narrative shard). Intended to be queued by orchestrator and consumed by a rewrite agent.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Feedback.SectionRewrite.Request"
+        },
+        "refs": {
+          "type": "object",
+          "description": "Target references into the Cold SoT.",
+          "properties": {
+            "section_id": {
+              "type": "string",
+              "description": "ID of the section to rewrite."
+            },
+            "choice_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Optional subset of choices to rewrite."
+            }
+          },
+          "required": [
+            "section_id"
+          ],
+          "additionalProperties": false
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Targeted rewrite guidance tied to refs.section_id (style, pacing, beats)."
+        },
+        "constraints": {
+          "type": "object",
+          "description": "Hard bounds for the rewrite action.",
+          "properties": {
+            "max_word_delta": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Absolute bound on net word change."
+            },
+            "preserve_codewords": {
+              "type": "boolean",
+              "default": true,
+              "description": "Do not alter codeword semantics."
+            },
+            "keep_anchors": {
+              "type": "boolean",
+              "default": true,
+              "description": "Preserve internal anchors and cross-refs."
+            }
+          },
+          "additionalProperties": false
+        },
+        "ttl_cycles": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Time-to-live in agent cycles; after this, drop or escalate."
+        }
+      },
+      "required": [
+        "message_type",
+        "refs",
+        "instructions"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/Feedback.SectionRewrite.Response.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Feedback Section Rewrite Response",
+  "description": "Reply to a rewrite request with updated files and change summary.",
+  "$comment": "Lower-layer: the response should update the Cold SoT section text (and choices if needed) and report deltas for audits.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Feedback.SectionRewrite.Response"
+        },
+        "in_reply_to": {
+          "type": "string",
+          "description": "message_id (ULID) of the originating Request."
+        },
+        "result_path": {
+          "type": "string",
+          "description": "Filesystem path to the updated section JSON (current.json)."
+        },
+        "delta_summary": {
+          "type": "string",
+          "description": "Human-readable summary of changes."
+        },
+        "word_delta": {
+          "type": "integer",
+          "description": "Net word count change across edited fields."
+        },
+        "token_delta": {
+          "type": "integer",
+          "description": "Optional token count delta (if measured)."
+        },
+        "violations": {
+          "type": "array",
+          "description": "Constraint breaches (if any) detected by the agent or validator.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "message_type",
+        "in_reply_to",
+        "result_path"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}
