@@ -94,7 +94,7 @@ Orchestrator manages:
 |           | OpenAI 4o-image                  | `openai`                  | best-effort |
 |           | Bedrock SDXL / Titan Image G1 v2 | `boto3 bedrock-runtime`   | best-effort |
 | **Audio** | Gemini MusicLM                   | `google-generativeai`     | best-effort |
-|           | Bedrock TTS / Local TTS          | `boto3` / custom          | strict      |
+|           | Bedrock TTS / Local TTS          | `boto3 bedrock-runtime` / custom | strict      |
 
 All adapters use **provider-native SDKs** for performance, authentication, and billing.
 Fallbacks and rate-limit guards are automatic.
