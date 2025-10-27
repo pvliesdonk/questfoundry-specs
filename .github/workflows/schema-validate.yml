@@ -3,7 +3,7 @@ name: Validate Schemas and Examples
 on:
   pull_request:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 jobs:
   ajv-validate:
@@ -14,7 +14,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install ajv-cli
         run: |
@@ -30,7 +30,7 @@ jobs:
           for ex in $(find ./examples -type f -name '*.json'); do
             echo "=== Validating $ex ==="
             # ajv-cli loads all schemas via -s flags, then validates -d file
-            ajv -c ajv-formats --spec=draft2020 -s $SCHEMAS -d "$ex"
+            ajv test -c ajv-formats --spec=draft2020 -s $SCHEMAS -d "$ex" --valid
           done
 
   jsonlint:
