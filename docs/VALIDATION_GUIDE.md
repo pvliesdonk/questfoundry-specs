@@ -44,6 +44,7 @@ Emit an **Event.Validation.Report** with `scope=state` and structured `issues[]`
 - `hint`: remediation suggestion.
 
 ## Example — Minimal Registry
+
 ```json
 {
   "entries": [

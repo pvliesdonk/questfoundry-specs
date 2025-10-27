@@ -1,6 +1,6 @@
 # Questfoundry Schema Index (v1)
 
-Domain: https://questfoundry.liesdonk.nl/v1
+Domain: <https://questfoundry.liesdonk.nl/v1>
 
 This index lists the canonical JSON Schemas, their purpose, producers/consumers, and typical file locations inside a repo.
 All `$id` fields use absolute URLs under the domain above so `$ref`s are resolvable out of tree.
@@ -80,5 +80,4 @@ All `$id` fields use absolute URLs under the domain above so `$ref`s are resolva
 
 ---
 
-
-*Keep this index updated when adding new Event.* or Command.* schemas; maintain 1:1 parity between governance flows (request/response) and their event mirrors.*
+*Keep this index updated when adding new Event.* or Command.*schemas; maintain 1:1 parity between governance flows (request/response) and their event mirrors.*
