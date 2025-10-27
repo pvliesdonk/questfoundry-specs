@@ -19,3 +19,8 @@ See `reference/architecture.md`, `reference/options_and_configs.md`, and `protoc
 ## Release Process
 
 Push a tag matching `v*` from your main branch to trigger the release workflow (for example, `git tag v0.1.0 && git push origin v0.1.0`). Automation publishes release notes on GitHub and attaches a ZIP snapshot of the specification.
+
+## Development
+
+- Run `python tools/build_schema_artifacts.py` to regenerate the bundled schema and reference diagrams in `protocol/dist/`.
+- Optional: `pre-commit install` to run the generator automatically before each commit.
