@@ -15,3 +15,7 @@ Language → genre → tweak settings → silent build (teasers) → project zip
 
 See `reference/architecture.md`, `reference/options_and_configs.md`, and `protocol/README.md`.  
 ![System Overview](reference/system_overview.png)
+
+## Release Process
+
+Push a tag matching `v*` (for example, `git tag v0.1.0 && git push origin v0.1.0`) to trigger the release workflow. Automation publishes release notes on GitHub and attaches a ZIP snapshot of the specification.
