@@ -1,0 +1,13 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Governance.RequestWaiver.schema.json",
+  "protocol_version": "1.0",
+  "message_type": "Command.Governance.RequestWaiver",
+  "message_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "created_at": "2025-10-27T12:11:11Z",
+  "sender": "orchestrator",
+  "command_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "title": "Allow placeholder stub in Section S-045",
+  "scope": "manuscript",
+  "notes": "Temporary unblock; to be rewritten before RC.",
+  "expires_at": "2025-11-10T00:00:00Z"
+}

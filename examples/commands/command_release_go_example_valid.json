@@ -1,0 +1,12 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Release.Go.schema.json",
+  "protocol_version": "1.0",
+  "message_type": "Command.Release.Go",
+  "message_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "created_at": "2025-10-27T13:00:00Z",
+  "sender": "release-bot",
+  "command_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "target_version": "1.2.0",
+  "channel": "candidate",
+  "notes": "Release Candidate 1"
+}

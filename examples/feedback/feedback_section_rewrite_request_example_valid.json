@@ -1,0 +1,22 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/Feedback.SectionRewrite.Request.schema.json",
+  "protocol_version": "1.0",
+  "message_type": "Feedback.SectionRewrite.Request",
+  "message_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "created_at": "2025-10-27T12:10:00Z",
+  "sender": "orchestrator:v1",
+  "refs": {
+    "section_id": "S-010",
+    "choice_ids": [
+      "C-2",
+      "C-3"
+    ]
+  },
+  "instructions": "Raise external stakes by foregrounding station lockdown protocols; preserve character beats; target +80 to +120 words.",
+  "constraints": {
+    "max_word_delta": 150,
+    "preserve_codewords": true,
+    "keep_anchors": true
+  },
+  "ttl_cycles": 3
+}

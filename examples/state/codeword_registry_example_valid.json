@@ -1,0 +1,32 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/schemas/state/codeword_registry.schema.json",
+  "version": "1.2.0",
+  "entries": [
+    {
+      "id": "CW.ACCESS.BASIC",
+      "scope": "global",
+      "kind": "boolean",
+      "default_state": true
+    },
+    {
+      "id": "CW.ACCESS.ALPHA",
+      "scope": "global",
+      "kind": "boolean",
+      "default_state": false,
+      "implies": [
+        "CW.ACCESS.BASIC"
+      ]
+    },
+    {
+      "id": "CW.KEYCARD.TIER",
+      "scope": "character",
+      "kind": "enum",
+      "enum_values": [
+        "none",
+        "silver",
+        "gold"
+      ],
+      "default_state": "none"
+    }
+  ]
+}

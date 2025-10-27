@@ -1,0 +1,14 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/Feedback.SectionRewrite.Response.schema.json",
+  "protocol_version": "1.0",
+  "message_type": "Feedback.SectionRewrite.Response",
+  "message_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "created_at": "2025-10-27T12:20:00Z",
+  "sender": "rewrite-agent:v1",
+  "in_reply_to": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "result_path": "state/narrative/sections/S-010/current.json",
+  "delta_summary": "Expanded intro by ~100 words; preserved codewords and anchors.",
+  "word_delta": 102,
+  "token_delta": 140,
+  "violations": []
+}

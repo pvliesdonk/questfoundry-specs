@@ -1,0 +1,60 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/playback/playback_transcript.schema.json",
+  "session_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "project_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "started_at": "2025-10-27T12:05:00Z",
+  "policy": {
+    "$schema": "https://questfoundry.liesdonk.nl/v1/schemas/policy/player_narrator_policy.schema.json",
+    "mode": "release",
+    "language": "en-US",
+    "improv": {
+      "allow": false,
+      "deviation_radius": 0
+    },
+    "content_controls": {
+      "max_tokens": 1024,
+      "target_style": "book-like"
+    },
+    "safety": {
+      "allow_mature": false,
+      "profanity_level": "none"
+    },
+    "narration": {
+      "voice": "Ava",
+      "speed": 1.0
+    },
+    "logging": {
+      "trace": false,
+      "echo_continuity_tags": true
+    },
+    "constraints": {
+      "no_placeholders": true,
+      "rewrite_budget": {
+        "max_word_delta": 150
+      }
+    }
+  },
+  "events": [
+    {
+      "ts": "2025-10-27T12:05:01Z",
+      "kind": "start",
+      "to_section_id": "S-000"
+    },
+    {
+      "ts": "2025-10-27T12:06:00Z",
+      "kind": "advance",
+      "from_section_id": "S-000",
+      "choice_id": "C-1",
+      "to_section_id": "S-001",
+      "codeword_diff": {
+        "CW.ACCESS.ALPHA": true
+      }
+    },
+    {
+      "ts": "2025-10-27T12:09:00Z",
+      "kind": "complete",
+      "to_section_id": "S-099"
+    }
+  ],
+  "ended_at": "2025-10-27T12:09:00Z"
+}

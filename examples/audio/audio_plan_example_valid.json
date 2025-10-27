@@ -1,0 +1,29 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/schemas/audio/audio_plan.schema.json",
+  "version": "1.2.0",
+  "cues": [
+    {
+      "id": "AUX.INTRO",
+      "kind": "music",
+      "title": "Dockside Tension",
+      "target": {
+        "section_id": "S-000",
+        "offset_ms": 0,
+        "duration_ms": 90000,
+        "loop": true,
+        "loop_region_ms": {
+          "start_ms": 30000,
+          "end_ms": 90000
+        },
+        "ducking_db": -6.0
+      },
+      "asset": {
+        "path": "audio/intro.ogg",
+        "checksum": {
+          "algo": "sha256",
+          "value": "1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      }
+    }
+  ]
+}

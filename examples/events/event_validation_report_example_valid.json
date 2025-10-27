@@ -1,0 +1,11 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Validation.Report.schema.json",
+  "protocol_version": "1.0",
+  "message_type": "Event.Validation.Report",
+  "message_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "created_at": "2025-10-27T13:05:00Z",
+  "sender": "validator",
+  "scope": "state",
+  "status": "pass",
+  "issues": []
+}

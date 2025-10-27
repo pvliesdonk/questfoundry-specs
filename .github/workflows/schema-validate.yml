@@ -1,0 +1,43 @@
+name: Validate Schemas and Examples
+
+on:
+  pull_request:
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  ajv-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ajv-cli
+        run: |
+          npm install -g ajv-cli ajv-formats
+
+      - name: Validate examples against schemas (draft 2020-12)
+        run: |
+          set -e
+          SCHEMA_ROOT="."
+          # Preload all schemas to avoid network fetches for $id URLs
+          SCHEMAS=$(find ./protocol/schemas ./schemas -type f -name '*.json' -print)
+          # Validate each example by pointing to its declared $schema OR by targeted schema
+          for ex in $(find ./examples -type f -name '*.json'); do
+            echo "=== Validating $ex ==="
+            # ajv-cli loads all schemas via -s flags, then validates -d file
+            ajv -c ajv-formats --spec=draft2020 -s $SCHEMAS -d "$ex"
+          done
+
+  jsonlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint JSON structure
+        run: |
+          npm install -g jsonlint
+          jsonlint -q $(git ls-files '*.json')
