@@ -67,7 +67,11 @@
                   }
                 },
                 "required": ["start_ms", "end_ms"],
-                "additionalProperties": false
+                  "end_ms": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "End offset for the loop region."
+                  }
               },
               "ducking_db": {
                 "type": "number",
