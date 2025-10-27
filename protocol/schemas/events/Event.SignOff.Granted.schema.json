@@ -17,13 +17,7 @@
         },
         "scope": {
           "type": "string",
-          "enum": [
-            "manuscript",
-            "art",
-            "audio",
-            "package",
-            "all"
-          ]
+          "enum": ["manuscript", "art", "audio", "package", "all"]
         },
         "granted_by": {
           "type": "string"
@@ -33,11 +27,7 @@
           "description": "Optional conditions/notes."
         }
       },
-      "required": [
-        "message_type",
-        "scope",
-        "granted_by"
-      ],
+      "required": ["message_type", "scope", "granted_by"],
       "additionalProperties": false
     }
   ]

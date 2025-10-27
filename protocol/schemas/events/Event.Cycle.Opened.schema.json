@@ -28,11 +28,7 @@
           "description": "Optional human note."
         }
       },
-      "required": [
-        "message_type",
-        "cycle_id",
-        "project_id"
-      ],
+      "required": ["message_type", "cycle_id", "project_id"],
       "additionalProperties": false
     }
   ]

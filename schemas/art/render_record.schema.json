@@ -8,10 +8,7 @@
   "properties": {
     "kind": {
       "type": "string",
-      "enum": [
-        "image",
-        "audio"
-      ],
+      "enum": ["image", "audio"],
       "description": "Render type."
     },
     "path": {
@@ -45,18 +42,11 @@
           "type": "object",
           "description": "Engine-specific parameters (sampler, steps, cfg, temperature, etc.).",
           "additionalProperties": {
-            "type": [
-              "string",
-              "number",
-              "boolean"
-            ]
+            "type": ["string", "number", "boolean"]
           }
         }
       },
-      "required": [
-        "engine",
-        "seed"
-      ],
+      "required": ["engine", "seed"],
       "additionalProperties": false
     },
     "prompt": {
@@ -101,11 +91,6 @@
       "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/provenance"
     }
   },
-  "required": [
-    "kind",
-    "path",
-    "checksum",
-    "generator"
-  ],
+  "required": ["kind", "path", "checksum", "generator"],
   "additionalProperties": false
 }

@@ -49,19 +49,12 @@
                 "type": "string"
               }
             },
-            "required": [
-              "code",
-              "message"
-            ],
+            "required": ["code", "message"],
             "additionalProperties": false
           }
         }
       },
-      "required": [
-        "message_type",
-        "in_reply_to",
-        "result_path"
-      ],
+      "required": ["message_type", "in_reply_to", "result_path"],
       "additionalProperties": false
     }
   ]

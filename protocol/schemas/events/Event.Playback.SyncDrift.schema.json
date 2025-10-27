@@ -23,24 +23,13 @@
         },
         "drift_reason": {
           "type": "string",
-          "enum": [
-            "policy_improv",
-            "determinism_break",
-            "bug",
-            "manual_override",
-            "unknown"
-          ]
+          "enum": ["policy_improv", "determinism_break", "bug", "manual_override", "unknown"]
         },
         "notes": {
           "type": "string"
         }
       },
-      "required": [
-        "message_type",
-        "expected_section_id",
-        "actual_section_id",
-        "drift_reason"
-      ],
+      "required": ["message_type", "expected_section_id", "actual_section_id", "drift_reason"],
       "additionalProperties": false
     }
   ]

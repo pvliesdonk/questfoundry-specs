@@ -32,14 +32,7 @@
           },
           "kind": {
             "type": "string",
-            "enum": [
-              "start",
-              "advance",
-              "jump",
-              "complete",
-              "drift",
-              "note"
-            ],
+            "enum": ["start", "advance", "jump", "complete", "drift", "note"],
             "description": "Event kind."
           },
           "from_section_id": {
@@ -76,10 +69,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "ts",
-          "kind"
-        ],
+        "required": ["ts", "kind"],
         "additionalProperties": false
       }
     },
@@ -87,10 +77,6 @@
       "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
     }
   },
-  "required": [
-    "session_id",
-    "started_at",
-    "events"
-  ],
+  "required": ["session_id", "started_at", "events"],
   "additionalProperties": false
 }

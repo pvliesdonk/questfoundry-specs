@@ -29,17 +29,11 @@
           "ref": "Station Log #8842"
         }
       ],
-      "counters": [
-        "CLM.003"
-      ]
+      "counters": ["CLM.003"]
     }
   ],
   "merge_policy": {
-    "prefer_status_order": [
-      "asserted",
-      "disputed",
-      "retracted"
-    ],
+    "prefer_status_order": ["asserted", "disputed", "retracted"],
     "min_confidence": 0.5
   }
 }

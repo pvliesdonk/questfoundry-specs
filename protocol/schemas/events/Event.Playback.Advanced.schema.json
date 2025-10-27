@@ -25,11 +25,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "message_type",
-        "from_section_id",
-        "to_section_id"
-      ],
+      "required": ["message_type", "from_section_id", "to_section_id"],
       "additionalProperties": false
     }
   ]

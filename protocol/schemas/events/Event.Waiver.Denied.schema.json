@@ -28,11 +28,7 @@
           }
         }
       },
-      "required": [
-        "message_type",
-        "waiver_id",
-        "denied_by"
-      ],
+      "required": ["message_type", "waiver_id", "denied_by"],
       "additionalProperties": false
     }
   ]

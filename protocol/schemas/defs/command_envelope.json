@@ -15,9 +15,7 @@
           "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
         }
       },
-      "required": [
-        "command_id"
-      ],
+      "required": ["command_id"],
       "additionalProperties": false
     }
   ]

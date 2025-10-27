@@ -22,11 +22,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "message_type",
-        "waiver_id",
-        "approved_by"
-      ],
+      "required": ["message_type", "waiver_id", "approved_by"],
       "additionalProperties": false
     }
   ]

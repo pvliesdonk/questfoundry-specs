@@ -20,11 +20,7 @@
         },
         "channel": {
           "type": "string",
-          "enum": [
-            "internal",
-            "candidate",
-            "public"
-          ],
+          "enum": ["internal", "candidate", "public"],
           "description": "Release channel."
         },
         "notes": {
@@ -32,11 +28,7 @@
           "description": "Changelog or context."
         }
       },
-      "required": [
-        "message_type",
-        "target_version",
-        "channel"
-      ],
+      "required": ["message_type", "target_version", "channel"],
       "additionalProperties": false
     }
   ]

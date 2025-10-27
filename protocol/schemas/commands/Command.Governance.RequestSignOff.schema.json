@@ -17,13 +17,7 @@
         },
         "scope": {
           "type": "string",
-          "enum": [
-            "manuscript",
-            "art",
-            "audio",
-            "package",
-            "all"
-          ],
+          "enum": ["manuscript", "art", "audio", "package", "all"],
           "description": "Review scope."
         },
         "notes": {
@@ -31,10 +25,7 @@
           "description": "Additional info for reviewers."
         }
       },
-      "required": [
-        "message_type",
-        "scope"
-      ],
+      "required": ["message_type", "scope"],
       "additionalProperties": false
     }
   ]

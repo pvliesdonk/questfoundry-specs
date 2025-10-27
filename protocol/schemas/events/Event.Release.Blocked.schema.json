@@ -26,11 +26,7 @@
           "minItems": 1
         }
       },
-      "required": [
-        "message_type",
-        "target_version",
-        "reasons"
-      ],
+      "required": ["message_type", "target_version", "reasons"],
       "additionalProperties": false
     }
   ]

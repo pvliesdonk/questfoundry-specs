@@ -32,9 +32,7 @@
               "description": "Optional subset of choices to rewrite."
             }
           },
-          "required": [
-            "section_id"
-          ],
+          "required": ["section_id"],
           "additionalProperties": false
         },
         "instructions": {
@@ -69,11 +67,7 @@
           "description": "Time-to-live in agent cycles; after this, drop or escalate."
         }
       },
-      "required": [
-        "message_type",
-        "refs",
-        "instructions"
-      ],
+      "required": ["message_type", "refs", "instructions"],
       "additionalProperties": false
     }
   ]

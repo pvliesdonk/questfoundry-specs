@@ -17,14 +17,7 @@
         },
         "category": {
           "type": "string",
-          "enum": [
-            "rights",
-            "content_policy",
-            "safety",
-            "scope",
-            "dependencies",
-            "other"
-          ]
+          "enum": ["rights", "content_policy", "safety", "scope", "dependencies", "other"]
         },
         "question": {
           "type": "string"
@@ -37,11 +30,7 @@
           "minimum": 1
         }
       },
-      "required": [
-        "message_type",
-        "category",
-        "question"
-      ],
+      "required": ["message_type", "category", "question"],
       "additionalProperties": false
     }
   ]

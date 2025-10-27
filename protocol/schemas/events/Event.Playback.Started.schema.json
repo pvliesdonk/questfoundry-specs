@@ -24,21 +24,14 @@
         },
         "policy_mode": {
           "type": "string",
-          "enum": [
-            "release",
-            "debug",
-            "deterministic"
-          ]
+          "enum": ["release", "debug", "deterministic"]
         },
         "seed": {
           "type": "integer",
           "minimum": 0
         }
       },
-      "required": [
-        "message_type",
-        "section_id"
-      ],
+      "required": ["message_type", "section_id"],
       "additionalProperties": false
     }
   ]

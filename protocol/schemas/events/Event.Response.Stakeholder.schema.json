@@ -21,22 +21,13 @@
         },
         "decision": {
           "type": "string",
-          "enum": [
-            "approve",
-            "deny",
-            "defer",
-            "info"
-          ]
+          "enum": ["approve", "deny", "defer", "info"]
         },
         "notes": {
           "type": "string"
         }
       },
-      "required": [
-        "message_type",
-        "in_reply_to",
-        "decision"
-      ],
+      "required": ["message_type", "in_reply_to", "decision"],
       "additionalProperties": false
     }
   ]

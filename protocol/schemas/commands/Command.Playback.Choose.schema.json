@@ -24,11 +24,7 @@
           "description": "Chosen option id."
         }
       },
-      "required": [
-        "message_type",
-        "from_section_id",
-        "choice_id"
-      ],
+      "required": ["message_type", "from_section_id", "choice_id"],
       "additionalProperties": false
     }
   ]

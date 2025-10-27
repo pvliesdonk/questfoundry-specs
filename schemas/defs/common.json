@@ -41,9 +41,7 @@
       "properties": {
         "algo": {
           "type": "string",
-          "enum": [
-            "sha256"
-          ],
+          "enum": ["sha256"],
           "description": "Hash algorithm."
         },
         "value": {
@@ -52,10 +50,7 @@
           "description": "Hex-encoded digest."
         }
       },
-      "required": [
-        "algo",
-        "value"
-      ],
+      "required": ["algo", "value"],
       "additionalProperties": false
     },
     "toolchain": {
@@ -88,18 +83,12 @@
         "extensions": {
           "type": "object",
           "additionalProperties": {
-            "type": [
-              "string",
-              "number",
-              "boolean"
-            ]
+            "type": ["string", "number", "boolean"]
           },
           "description": "Free-form hints: safety modes, sampler names, temperature, etc."
         }
       },
-      "required": [
-        "seed"
-      ],
+      "required": ["seed"],
       "additionalProperties": false
     },
     "provenance": {
@@ -123,9 +112,7 @@
           "description": "Human notes about context/decisions."
         }
       },
-      "required": [
-        "created_at"
-      ],
+      "required": ["created_at"],
       "additionalProperties": false
     }
   }

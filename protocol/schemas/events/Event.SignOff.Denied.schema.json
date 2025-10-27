@@ -17,13 +17,7 @@
         },
         "scope": {
           "type": "string",
-          "enum": [
-            "manuscript",
-            "art",
-            "audio",
-            "package",
-            "all"
-          ]
+          "enum": ["manuscript", "art", "audio", "package", "all"]
         },
         "denied_by": {
           "type": "string"
@@ -36,12 +30,7 @@
           "minItems": 1
         }
       },
-      "required": [
-        "message_type",
-        "scope",
-        "denied_by",
-        "reasons"
-      ],
+      "required": ["message_type", "scope", "denied_by", "reasons"],
       "additionalProperties": false
     }
   ]

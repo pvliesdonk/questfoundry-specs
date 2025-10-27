@@ -29,24 +29,12 @@
           },
           "scope": {
             "type": "string",
-            "enum": [
-              "global",
-              "section",
-              "act",
-              "beat",
-              "character",
-              "item",
-              "faction"
-            ],
+            "enum": ["global", "section", "act", "beat", "character", "item", "faction"],
             "description": "Where this codeword applies."
           },
           "kind": {
             "type": "string",
-            "enum": [
-              "boolean",
-              "counter",
-              "enum"
-            ],
+            "enum": ["boolean", "counter", "enum"],
             "description": "State representation."
           },
           "enum_values": {
@@ -102,17 +90,11 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "scope",
-          "kind"
-        ],
+        "required": ["id", "scope", "kind"],
         "additionalProperties": false
       }
     }
   },
-  "required": [
-    "entries"
-  ],
+  "required": ["entries"],
   "additionalProperties": false
 }

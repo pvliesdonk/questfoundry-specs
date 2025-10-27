@@ -21,20 +21,11 @@
         },
         "reason": {
           "type": "string",
-          "enum": [
-            "debug",
-            "deterministic",
-            "manual_override",
-            "recovery",
-            "other"
-          ],
+          "enum": ["debug", "deterministic", "manual_override", "recovery", "other"],
           "description": "Why the jump occurs."
         }
       },
-      "required": [
-        "message_type",
-        "to_section_id"
-      ],
+      "required": ["message_type", "to_section_id"],
       "additionalProperties": false
     }
   ]

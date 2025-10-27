@@ -13,19 +13,13 @@
       "scope": "global",
       "kind": "boolean",
       "default_state": false,
-      "implies": [
-        "CW.ACCESS.BASIC"
-      ]
+      "implies": ["CW.ACCESS.BASIC"]
     },
     {
       "id": "CW.KEYCARD.TIER",
       "scope": "character",
       "kind": "enum",
-      "enum_values": [
-        "none",
-        "silver",
-        "gold"
-      ],
+      "enum_values": ["none", "silver", "gold"],
       "default_state": "none"
     }
   ]

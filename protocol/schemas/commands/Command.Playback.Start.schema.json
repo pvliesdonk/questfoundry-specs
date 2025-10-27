@@ -24,11 +24,7 @@
         },
         "policy_mode": {
           "type": "string",
-          "enum": [
-            "release",
-            "debug",
-            "deterministic"
-          ],
+          "enum": ["release", "debug", "deterministic"],
           "description": "Narration mode."
         },
         "seed": {
@@ -37,10 +33,7 @@
           "description": "Overrides toolchain.seed if provided."
         }
       },
-      "required": [
-        "message_type",
-        "section_id"
-      ],
+      "required": ["message_type", "section_id"],
       "additionalProperties": false
     }
   ]

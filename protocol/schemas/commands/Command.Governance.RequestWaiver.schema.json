@@ -31,11 +31,7 @@
           "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
         }
       },
-      "required": [
-        "message_type",
-        "title",
-        "scope"
-      ],
+      "required": ["message_type", "title", "scope"],
       "additionalProperties": false
     }
   ]

@@ -25,11 +25,7 @@
           },
           "kind": {
             "type": "string",
-            "enum": [
-              "music",
-              "ambient",
-              "sfx"
-            ],
+            "enum": ["music", "ambient", "sfx"],
             "description": "Cue category."
           },
           "title": {
@@ -70,10 +66,7 @@
                     "minimum": 1
                   }
                 },
-                "required": [
-                  "start_ms",
-                  "end_ms"
-                ],
+                "required": ["start_ms", "end_ms"],
                 "additionalProperties": false
               },
               "ducking_db": {
@@ -100,17 +93,11 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "kind",
-          "target"
-        ],
+        "required": ["id", "kind", "target"],
         "additionalProperties": false
       }
     }
   },
-  "required": [
-    "cues"
-  ],
+  "required": ["cues"],
   "additionalProperties": false
 }

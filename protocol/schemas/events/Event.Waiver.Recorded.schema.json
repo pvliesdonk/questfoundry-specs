@@ -29,12 +29,7 @@
           "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
         }
       },
-      "required": [
-        "message_type",
-        "waiver_id",
-        "title",
-        "scope"
-      ],
+      "required": ["message_type", "waiver_id", "title", "scope"],
       "additionalProperties": false
     }
   ]

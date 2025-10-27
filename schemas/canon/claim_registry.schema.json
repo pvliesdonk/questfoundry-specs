@@ -32,12 +32,7 @@
             "description": "Relationship or property name."
           },
           "object": {
-            "type": [
-              "string",
-              "number",
-              "boolean",
-              "null"
-            ],
+            "type": ["string", "number", "boolean", "null"],
             "description": "Value of the claim."
           },
           "confidence": {
@@ -48,11 +43,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "asserted",
-              "disputed",
-              "retracted"
-            ],
+            "enum": ["asserted", "disputed", "retracted"],
             "description": "Current standing of the claim."
           },
           "sources": {
@@ -62,11 +53,7 @@
               "properties": {
                 "kind": {
                   "type": "string",
-                  "enum": [
-                    "citation",
-                    "section",
-                    "external"
-                  ],
+                  "enum": ["citation", "section", "external"],
                   "description": "Source type."
                 },
                 "ref": {
@@ -78,10 +65,7 @@
                   "description": "Optional quoted support (short)."
                 }
               },
-              "required": [
-                "kind",
-                "ref"
-              ],
+              "required": ["kind", "ref"],
               "additionalProperties": false
             }
           },
@@ -96,12 +80,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "subject",
-          "predicate",
-          "status"
-        ],
+        "required": ["id", "subject", "predicate", "status"],
         "additionalProperties": false
       }
     },
@@ -126,8 +105,6 @@
       "additionalProperties": false
     }
   },
-  "required": [
-    "claims"
-  ],
+  "required": ["claims"],
   "additionalProperties": false
 }

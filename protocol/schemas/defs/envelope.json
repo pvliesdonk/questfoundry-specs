@@ -41,12 +41,6 @@
       "description": "Sticky tags for correlating multi-step flows (e.g., 'release:1.2.0')."
     }
   },
-  "required": [
-    "protocol_version",
-    "message_type",
-    "message_id",
-    "created_at",
-    "sender"
-  ],
+  "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
   "additionalProperties": false
 }

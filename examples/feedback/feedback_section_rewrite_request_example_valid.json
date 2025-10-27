@@ -7,10 +7,7 @@
   "sender": "orchestrator:v1",
   "refs": {
     "section_id": "S-010",
-    "choice_ids": [
-      "C-2",
-      "C-3"
-    ]
+    "choice_ids": ["C-2", "C-3"]
   },
   "instructions": "Raise external stakes by foregrounding station lockdown protocols; preserve character beats; target +80 to +120 words.",
   "constraints": {

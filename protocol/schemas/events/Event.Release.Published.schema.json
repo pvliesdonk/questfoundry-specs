@@ -26,11 +26,7 @@
           "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
         }
       },
-      "required": [
-        "message_type",
-        "version",
-        "artifact_url"
-      ],
+      "required": ["message_type", "version", "artifact_url"],
       "additionalProperties": false
     }
   ]
