@@ -92,7 +92,7 @@ Orchestrator manages:
 |           | AUTOMATIC1111 / ComfyUI          | HTTP API                  | strict      |
 |           | Google Imagen 4                  | `google-cloud-aiplatform` | best-effort |
 |           | OpenAI 4o-image                  | `openai`                  | best-effort |
-|           | Bedrock SDXL / Titan Image G1 v2 | `boto3`                   | best-effort |
+|           | Bedrock SDXL / Titan Image G1 v2 | `boto3 bedrock-runtime`   | best-effort |
 | **Audio** | Gemini MusicLM                   | `google-generativeai`     | best-effort |
 |           | Bedrock TTS / Local TTS          | `boto3` / custom          | strict      |
 
