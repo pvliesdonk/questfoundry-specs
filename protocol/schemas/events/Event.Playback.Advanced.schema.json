@@ -1,23 +1,36 @@
 {
-  "title": "Playback Advanced",
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Playback.Advanced.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Playback Advanced",
+  "description": "Advanced by choosing an option to move to a next section.",
+  "$comment": "Emit exactly once per successful choice application; used by transcripts and analytics.",
   "allOf": [
     {
-      "$ref": "../defs/envelope.json"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
     },
     {
       "type": "object",
       "properties": {
         "message_type": {
+          "type": "string",
           "const": "Event.Playback.Advanced"
         },
-        "section_id": {
+        "from_section_id": {
           "type": "string"
         },
         "choice_id": {
           "type": "string"
+        },
+        "to_section_id": {
+          "type": "string"
         }
       },
-      "required": ["section_id", "choice_id"]
+      "required": [
+        "message_type",
+        "from_section_id",
+        "to_section_id"
+      ],
+      "additionalProperties": false
     }
   ]
 }

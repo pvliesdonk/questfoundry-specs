@@ -1,23 +1,37 @@
 {
-  "title": "Release Blocked",
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Release.Blocked.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Release Blocked",
+  "description": "Release blocked for a target version.",
+  "$comment": "Reasons should be structured where possible for dashboards.",
   "allOf": [
     {
-      "$ref": "../defs/envelope.json"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
     },
     {
       "type": "object",
       "properties": {
         "message_type": {
+          "type": "string",
           "const": "Event.Release.Blocked"
         },
-        "artifact_uri": {
-          "type": "string"
+        "target_version": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
         },
-        "reason": {
-          "type": "string"
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
         }
       },
-      "required": ["artifact_uri", "reason"]
+      "required": [
+        "message_type",
+        "target_version",
+        "reasons"
+      ],
+      "additionalProperties": false
     }
   ]
 }

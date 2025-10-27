@@ -1,20 +1,47 @@
 {
-  "title": "Playback SyncDrift",
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Playback.SyncDrift.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Playback SyncDrift",
+  "description": "Detected drift between expected and actual section (e.g., improv or determinism break).",
+  "$comment": "Used by determinism auditors; downstream may auto-correct or flag session.",
   "allOf": [
     {
-      "$ref": "../defs/envelope.json"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
     },
     {
       "type": "object",
       "properties": {
         "message_type": {
+          "type": "string",
           "const": "Event.Playback.SyncDrift"
         },
-        "delta_ms": {
-          "type": "number"
+        "expected_section_id": {
+          "type": "string"
+        },
+        "actual_section_id": {
+          "type": "string"
+        },
+        "drift_reason": {
+          "type": "string",
+          "enum": [
+            "policy_improv",
+            "determinism_break",
+            "bug",
+            "manual_override",
+            "unknown"
+          ]
+        },
+        "notes": {
+          "type": "string"
         }
       },
-      "required": ["delta_ms"]
+      "required": [
+        "message_type",
+        "expected_section_id",
+        "actual_section_id",
+        "drift_reason"
+      ],
+      "additionalProperties": false
     }
   ]
 }
