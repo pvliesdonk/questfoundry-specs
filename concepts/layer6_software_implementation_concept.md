@@ -243,7 +243,7 @@ qf pn --project dist/story.zip --mode deterministic
 1. **Implement strict-typed library skeleton** (interfaces, adapters, orchestrator).
 2. **CLI scaffold** with full command family.
 3. **Policy config template** (`state/ai_policy.yaml`) with routing, budgets, rate limits.
-4. **Provider adapters** (OpenAI, Google, Bedrock, Ollama, SDXL, A1111/Comfy, Imagen 4).
+4. Provider adapters (e.g., for OpenAI, Google, AWS Bedrock, Ollama, and local backends like A1111/ComfyUI).
 5. **Validator + manifest** finalized for reproducibility.
 6. **Binder** and **Wiki exporter** modules.
 7. **Standalone PN** packaging pipeline.
