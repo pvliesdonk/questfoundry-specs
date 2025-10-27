@@ -24,6 +24,63 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install jsonschema
 
+      - name: Lint JSON files
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          EXCLUDE_DIRS = {".git", ".github", ".venv", "__pycache__"}
+
+          def should_skip(path: Path) -> bool:
+              return any(part in EXCLUDE_DIRS for part in path.parts)
+
+          failures = []
+
+          for json_path in sorted(Path(".").rglob("*.json")):
+              if json_path.is_dir() or should_skip(json_path):
+                  continue
+
+              try:
+                  original = json_path.read_text(encoding="utf-8")
+                  parsed = json.loads(original)
+              except Exception as exc:
+                  failures.append(f"{json_path}: invalid JSON ({exc})")
+                  continue
+
+              formatted = json.dumps(parsed, indent=2, ensure_ascii=False)
+              formatted += "\n"
+
+              if original != formatted:
+                  failures.append(
+                      (
+                          json_path,
+                          "not canonical",
+                          f"""python - <<'PY'
+import json, pathlib
+path = pathlib.Path(r"{json_path.as_posix()}")
+path.write_text(json.dumps(json.loads(path.read_text()), indent=2, ensure_ascii=False) + "\\n")
+PY""",
+                      )
+                  )
+
+          if failures:
+              print("[FAIL] JSON lint issues:")
+              for path, message, fix in failures:
+                  print(f"  - {path}: {message}")
+                  print("    Fix:")
+                  for line in fix.splitlines():
+                      print(f"      {line}")
+              sys.exit(1)
+
+          print("[PASS] JSON formatting is canonical.")
+          PY
+
+      - name: Lint Markdown files
+        run: |
+          npx --yes markdownlint-cli@0.39.0 "**/*.md"
+
       - name: Validate golden examples against schemas
         run: |
           python - <<'PY'
