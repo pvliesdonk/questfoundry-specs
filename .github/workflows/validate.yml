@@ -1,0 +1,118 @@
+name: Specification Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate-examples:
+    name: Validate Example Payloads
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jsonschema
+
+      - name: Validate golden examples against schemas
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          try:
+              import jsonschema
+          except ModuleNotFoundError as exc:
+              print(f"[ERROR] jsonschema module missing: {exc}")
+              sys.exit(1)
+
+          SCHEMAS_DIR = Path("protocol/schemas")
+          EXAMPLES_DIR = Path("examples/golden")
+
+          def build_store():
+              store = {}
+              for path in SCHEMAS_DIR.rglob("*.json"):
+                  try:
+                      obj = json.loads(path.read_text(encoding="utf-8"))
+                  except Exception as exc:
+                      print(f"[WARN] Skipping unreadable schema {path}: {exc}")
+                      continue
+                  store[path.name] = obj
+                  store[f"file://{path.resolve()}"] = obj
+                  try:
+                      store[str(path.relative_to(SCHEMAS_DIR))] = obj
+                  except ValueError:
+                      pass
+                  if isinstance(obj, dict) and obj.get("$id"):
+                      store[obj["$id"]] = obj
+              return store
+
+          def load_registry():
+              registry = {}
+              for path in SCHEMAS_DIR.rglob("*.json"):
+                  try:
+                      registry[path.name] = json.loads(path.read_text(encoding="utf-8"))
+                  except Exception as exc:
+                      print(f"[WARN] Failed to parse schema {path}: {exc}")
+              return registry
+
+          def find_schema(message, registry):
+              message_type = message.get("message_type", "")
+              candidates = [
+                  f"{message_type}.schema.json",
+              ]
+              if "." in message_type:
+                  candidates.append(f"{message_type.rsplit('.', 1)[0]}.schema.json")
+              for candidate in candidates:
+                  if candidate and candidate in registry:
+                      return registry[candidate]
+              return None
+
+          store = build_store()
+          registry = load_registry()
+
+          failures = []
+
+          for example_path in sorted(EXAMPLES_DIR.glob("*.json")):
+              try:
+                  payload = json.loads(example_path.read_text(encoding="utf-8"))
+              except Exception as exc:
+                  failures.append(f"{example_path.name}: invalid JSON ({exc})")
+                  continue
+
+              schema = find_schema(payload, registry)
+              if schema is None:
+                  failures.append(f"{example_path.name}: no matching schema for message_type={payload.get('message_type')!r}")
+                  continue
+
+              resolver = jsonschema.RefResolver(
+                  base_uri=f"file://{(SCHEMAS_DIR / 'events').resolve()}/",
+                  referrer=schema,
+                  store=store,
+              )
+
+              try:
+                  jsonschema.validate(instance=payload, schema=schema, resolver=resolver)
+                  print(f"[OK] {example_path.name} [{payload.get('message_type', '?')}]")
+              except Exception as exc:
+                  failures.append(f"{example_path.name}: {exc}")
+
+          if failures:
+              print("[FAIL] Validation issues found:")
+              for failure in failures:
+                  print(f"  - {failure}")
+              sys.exit(1)
+          else:
+              print("[PASS] All example payloads validated successfully.")
+          PY
