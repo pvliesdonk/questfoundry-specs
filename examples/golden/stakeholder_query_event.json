@@ -1,11 +1,12 @@
 {
   "protocol_version": "1.0",
   "message_type": "Event.Query.Stakeholder",
-  "message_id": "event.query.stakeholder-golden",
+  "message_id": "EVENTAQAERYASTAKEHAADERAGA",
   "trace_id": "trace-golden",
   "created_at": "2025-10-26T20:10:00Z",
   "sender": "validator",
   "category": "rights",
   "question": "Replace placeholder art before release?",
-  "rationale": "License uncertainty."
+  "rationale": "License uncertainty.",
+  "$schema": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Query.Stakeholder.schema.json"
 }

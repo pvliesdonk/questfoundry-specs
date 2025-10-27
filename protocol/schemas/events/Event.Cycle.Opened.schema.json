@@ -1,26 +1,39 @@
 {
-  "title": "Cycle Opened",
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Cycle.Opened.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Cycle Opened",
+  "description": "A new authoring/review cycle is opened for a project.",
+  "$comment": "",
   "allOf": [
     {
-      "$ref": "../defs/envelope.json"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
     },
     {
       "type": "object",
       "properties": {
         "message_type": {
+          "type": "string",
           "const": "Event.Cycle.Opened"
         },
+        "cycle_id": {
+          "type": "string",
+          "description": "ULID for the cycle."
+        },
+        "project_id": {
+          "type": "string",
+          "description": "ULID for the project."
+        },
         "reason": {
-          "type": "string"
-        },
-        "source_trace": {
-          "type": "string"
-        },
-        "context": {
-          "type": "object"
+          "type": "string",
+          "description": "Optional human note."
         }
       },
-      "required": ["reason"]
+      "required": [
+        "message_type",
+        "cycle_id",
+        "project_id"
+      ],
+      "additionalProperties": false
     }
   ]
 }
