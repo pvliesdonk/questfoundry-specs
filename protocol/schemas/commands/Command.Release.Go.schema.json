@@ -1,0 +1,43 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Release.Go.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command Release Go",
+  "description": "Initiate a release for a version/channel.",
+  "$comment": "Release builds must reference a complete Cold SoT snapshot and manifest with checksums.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/command_envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Command.Release.Go"
+        },
+        "target_version": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+        },
+        "channel": {
+          "type": "string",
+          "enum": [
+            "internal",
+            "candidate",
+            "public"
+          ],
+          "description": "Release channel."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Changelog or context."
+        }
+      },
+      "required": [
+        "message_type",
+        "target_version",
+        "channel"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

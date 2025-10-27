@@ -1,0 +1,41 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Governance.RequestSignOff.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command Governance RequestSignOff",
+  "description": "Request sign-off on a specific scope (e.g., manuscript).",
+  "$comment": "Sign-offs gate releases; conditions may be attached by stakeholders.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/command_envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Command.Governance.RequestSignOff"
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "manuscript",
+            "art",
+            "audio",
+            "package",
+            "all"
+          ],
+          "description": "Review scope."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional info for reviewers."
+        }
+      },
+      "required": [
+        "message_type",
+        "scope"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

@@ -1,24 +1,24 @@
 {
-  "$id": "command_envelope.json",
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/command_envelope.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Command Envelope",
+  "description": "Envelope specialization for Commands. Adds command_id for idempotency and replay.",
+  "$comment": "Lower-layer invariant: Commands are idempotent; command_id must be logged and deduplicated by orchestrators.",
   "allOf": [
     {
-      "$ref": "../defs/envelope.json"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
     },
     {
       "type": "object",
       "properties": {
         "command_id": {
-          "type": "string"
-        },
-        "continuity_tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
         }
       },
-      "required": ["command_id"]
+      "required": [
+        "command_id"
+      ],
+      "additionalProperties": false
     }
   ]
 }

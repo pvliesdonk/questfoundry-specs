@@ -1,0 +1,41 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Playback.Jump.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command Playback Jump",
+  "description": "Jump to a section directly.",
+  "$comment": "Debug/recovery tool to resynchronize state or inspect branches.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/command_envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Command.Playback.Jump"
+        },
+        "to_section_id": {
+          "type": "string",
+          "description": "Target section id."
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "debug",
+            "deterministic",
+            "manual_override",
+            "recovery",
+            "other"
+          ],
+          "description": "Why the jump occurs."
+        }
+      },
+      "required": [
+        "message_type",
+        "to_section_id"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}
