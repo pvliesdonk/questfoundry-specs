@@ -18,12 +18,12 @@ It treats every creative process as a **set of cooperating AI agents** governed 
 
 ```
 questfoundry/
-  ai/                → adapters & providers (LLM, image, audio)
-  roles/             → creative & deterministic agents
-  orchestrator/      → policy, routing, feedback loops
-  protocol/          → Pydantic models, schemas, validator
-  cli/               → qf command family (Typer/Click)
-  state/             → Cold SoT snapshots, manifest, SBOM
+  ai/            → adapters & providers (LLM, image, audio)
+  roles/         → creative & deterministic agents
+  orchestrator/  → policy, routing, feedback loops
+  protocol/      → Pydantic models, schemas, validator
+  cli/           → qf command family (Typer/Click)
+  state/         → Cold SoT snapshots, manifest, SBOM
 ```
 
 ### Typed interfaces
