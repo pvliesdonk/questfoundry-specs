@@ -1,0 +1,119 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Common Definitions",
+  "description": "Reusable primitives used across protocol messages and state. These types are stable and versioned with the major protocol line.",
+  "$comment": "Lower-layer mapping: IDs and determinism anchors from Cold SoT; timestamps are RFC3339; language is BCP47; checksums are content-addressable (sha256 only for now).",
+  "$defs": {
+    "ulid": {
+      "title": "ULID",
+      "type": "string",
+      "description": "Universally unique, lexicographically sortable identifier (26 chars).",
+      "$comment": "Chosen over UUIDv4 to enable ordered logs and snapshot diffs.",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+    },
+    "semver": {
+      "title": "SemVer",
+      "type": "string",
+      "description": "Semantic Versioning per semver.org (no leading 'v').",
+      "$comment": "Cold SoT snapshots and releases are semantically versioned. Pre-release/build metadata supported.",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z-.]+)?(?:\\+[0-9A-Za-z-.]+)?$"
+    },
+    "rfc3339": {
+      "title": "RFC3339 Timestamp",
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 date-time string. Use UTC with 'Z' when possible.",
+      "$comment": "Hot SoT logs and governance events use RFC3339 for consistent ordering."
+    },
+    "iso_lang": {
+      "title": "Language (BCP47)",
+      "type": "string",
+      "description": "Language tag per BCP 47; examples: en, en-US, nl.",
+      "$comment": "Cold SoT supports multilingual works; narrator/player must honor this tag.",
+      "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+    },
+    "checksum": {
+      "title": "Checksum",
+      "type": "object",
+      "description": "Content-addressable integrity record for files/blobs.",
+      "$comment": "Lower-layer integrity: sha256 is required to enable deterministic rebuilds; other algos can be added in future majors.",
+      "properties": {
+        "algo": {
+          "type": "string",
+          "enum": ["sha256"],
+          "description": "Hash algorithm."
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Hex-encoded digest."
+        }
+      },
+      "required": ["algo", "value"],
+      "additionalProperties": false
+    },
+    "toolchain": {
+      "title": "Toolchain",
+      "type": "object",
+      "description": "Determinism-critical inputs: models, engines, router, seed, and optional extensions.",
+      "$comment": "Cold SoT requires recording toolchain + seed to replay renders and prose generation faithfully.",
+      "properties": {
+        "llm": {
+          "type": "string",
+          "description": "Provider/model slug, e.g., openai:gpt-5-2025-10-01"
+        },
+        "image_engine": {
+          "type": "string",
+          "description": "Image generation backend (e.g., a1111, sd3, imagen)."
+        },
+        "audio_engine": {
+          "type": "string",
+          "description": "TTS/Audio engine slug."
+        },
+        "router": {
+          "type": "string",
+          "description": "Model router profile (e.g., litellm group)."
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Global seed used across phases unless overridden."
+        },
+        "extensions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "number", "boolean"]
+          },
+          "description": "Free-form hints: safety modes, sampler names, temperature, etc."
+        }
+      },
+      "required": ["seed"],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "title": "Provenance",
+      "type": "object",
+      "description": "Origin trail: who/what created the artifact and from which inputs.",
+      "$comment": "Lower-layer auditability: tie outputs back to orchestrator/agents and input hashes.",
+      "properties": {
+        "created_by": {
+          "type": "string",
+          "description": "Agent/orchestrator id."
+        },
+        "created_at": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+        },
+        "inputs_hash": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Human notes about context/decisions."
+        }
+      },
+      "required": ["created_at"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Governance.RequestWaiver.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command Governance RequestWaiver",
+  "description": "Ask for an exception to a normative constraint or invariant.",
+  "$comment": "Waivers are time-bound when possible; decisions are logged as events.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/command_envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Command.Governance.RequestWaiver"
+        },
+        "title": {
+          "type": "string",
+          "description": "Short human-readable title."
+        },
+        "scope": {
+          "type": "string",
+          "description": "Affected process/document scope."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Rationale and risk assessment."
+        },
+        "expires_at": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+        }
+      },
+      "required": ["message_type", "title", "scope"],
+      "additionalProperties": false
+    }
+  ]
+}

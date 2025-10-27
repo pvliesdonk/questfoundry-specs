@@ -1,33 +1,64 @@
 {
-  "title": "Validation Report",
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Validation.Report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Validation Report",
+  "description": "Validation summary for a given scope (manuscript/codex/art/audio/package/state).",
+  "$comment": "Used by validators after checking Cold SoT shards or release artifacts. Results should be stable and reproducible.",
   "allOf": [
     {
-      "$ref": "../defs/envelope.json"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
     },
     {
       "type": "object",
       "properties": {
         "message_type": {
+          "type": "string",
           "const": "Event.Validation.Report"
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["manuscript", "codex", "art", "audio", "package", "state"],
+          "description": "What was validated."
         },
         "status": {
           "type": "string",
-          "enum": ["ok", "warn", "fail"]
+          "enum": ["pass", "fail", "warn"],
+          "description": "Overall outcome."
         },
-        "sot_ref": {
-          "type": "string"
-        },
-        "sot_hash": {
-          "type": "string"
-        },
-        "violations": {
+        "issues": {
           "type": "array",
+          "description": "Machine-parseable issues for tooling and dashboards.",
           "items": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Short machine code (e.g., FEEDBACK.TYPE.MISMATCH)."
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["error", "warning", "info"]
+              },
+              "message": {
+                "type": "string",
+                "description": "Human-readable explanation."
+              },
+              "path": {
+                "type": "string",
+                "description": "JSON Pointer into validated doc (if applicable)."
+              },
+              "hint": {
+                "type": "string",
+                "description": "Optional remediation hint."
+              }
+            },
+            "required": ["code", "severity", "message"],
+            "additionalProperties": false
           }
         }
       },
-      "required": ["status"]
+      "required": ["message_type", "scope", "status"],
+      "additionalProperties": false
     }
   ]
 }

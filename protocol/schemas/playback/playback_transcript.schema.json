@@ -1,0 +1,82 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/playback/playback_transcript.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Playback Transcript / Session Log",
+  "description": "Deterministic, replayable log of a play session with policy snapshots and codeword diffs.",
+  "$comment": "Lower-layer: enables exact replay, drift diagnosis, and bug reproduction across narrators/models.",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "ULID for this session."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "ULID of the project."
+    },
+    "started_at": {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+    },
+    "policy": {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/policy/player_narrator_policy.schema.json"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Transcript Event",
+        "properties": {
+          "ts": {
+            "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339",
+            "description": "Timestamp of the event."
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["start", "advance", "jump", "complete", "drift", "note"],
+            "description": "Event kind."
+          },
+          "from_section_id": {
+            "type": "string"
+          },
+          "choice_id": {
+            "type": "string"
+          },
+          "to_section_id": {
+            "type": "string"
+          },
+          "codeword_diff": {
+            "type": "object",
+            "description": "State changes (set/unset/counter/enum).",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "policy_snapshot": {
+            "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/policy/player_narrator_policy.schema.json",
+            "description": "Optional snapshot if changed during session."
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": ["ts", "kind"],
+        "additionalProperties": false
+      }
+    },
+    "ended_at": {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+    }
+  },
+  "required": ["session_id", "started_at", "events"],
+  "additionalProperties": false
+}

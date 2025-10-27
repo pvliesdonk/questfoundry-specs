@@ -1,31 +1,46 @@
 {
-  "$id": "envelope.json",
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Message Envelope",
+  "description": "Outer envelope for all protocol messages (Events and Commands). Establishes identity, time, and sender.",
+  "$comment": "Hot SoT: all runtime traffic must be enveloped to support tracing, audit, and correlation across agents.",
   "type": "object",
   "properties": {
     "protocol_version": {
       "type": "string",
-      "const": "1.0"
+      "const": "1.0",
+      "description": "Protocol line (major.minor)."
     },
     "message_type": {
-      "type": "string"
+      "type": "string",
+      "description": "Qualified type, e.g., Event.Playback.Started or Command.Release.Go.",
+      "pattern": "^(Event|Command)\\.[A-Za-z]+(\\.[A-Za-z]+)*$"
     },
     "message_id": {
-      "type": "string"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
     },
     "trace_id": {
-      "type": "string"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
     },
     "parent_trace_id": {
-      "type": "string"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
     },
     "created_at": {
-      "type": "string",
-      "format": "date-time"
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
     },
     "sender": {
-      "type": "string"
+      "type": "string",
+      "description": "Emitter id (agent/orchestrator/validator/router)."
+    },
+    "continuity_tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Sticky tags for correlating multi-step flows (e.g., 'release:1.2.0')."
     }
   },
-  "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"]
+  "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
+  "additionalProperties": false
 }

@@ -1,0 +1,100 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/schemas/state/codeword_registry.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Codeword / Flag Registry",
+  "description": "Global registry of narrative codewords/flags with scopes, defaults, and rules for acquire/revoke.",
+  "$comment": "Lower-layer: explicit registry prevents drift and enables validators to check conditions/effects against a canonical set.",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "ULID of the project (optional if embedded)."
+    },
+    "version": {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Codeword",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable identifier (e.g., CW.SECURITY.CLEARANCE.ALPHA)."
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-friendly label."
+          },
+          "scope": {
+            "type": "string",
+            "enum": ["global", "section", "act", "beat", "character", "item", "faction"],
+            "description": "Where this codeword applies."
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["boolean", "counter", "enum"],
+            "description": "State representation."
+          },
+          "enum_values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Allowed values when kind=enum."
+          },
+          "default_state": {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Initial value."
+          },
+          "acquire_rules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Narrative conditions to set/raise this."
+          },
+          "revoke_rules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Narrative conditions to clear/lower this."
+          },
+          "conflicts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Codeword ids that may not co-exist."
+          },
+          "implies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Codeword ids automatically implied when present."
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "scope", "kind"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["entries"],
+  "additionalProperties": false
+}

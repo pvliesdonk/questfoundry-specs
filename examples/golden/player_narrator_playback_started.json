@@ -1,9 +1,10 @@
 {
   "protocol_version": "1.0",
   "message_type": "Event.Playback.Started",
-  "message_id": "event.playback.started-golden",
+  "message_id": "EVENTAPAAYBACKASTARTEDAGAA",
   "trace_id": "trace-golden",
   "created_at": "2025-10-26T20:10:00Z",
   "sender": "player_narrator",
-  "section_id": "sec-001"
+  "section_id": "sec-001",
+  "$schema": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Playback.Started.schema.json"
 }

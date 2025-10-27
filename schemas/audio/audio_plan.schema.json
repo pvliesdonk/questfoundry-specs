@@ -1,0 +1,107 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/schemas/audio/audio_plan.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Audio Plan",
+  "description": "Plan for music/SFX cues aligned to narrative sections, including loop points and timing hooks.",
+  "$comment": "Lower-layer: separates intent (plan) from renders; enables live playback engines to schedule audio consistently.",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "ULID of the project (optional if embedded)."
+    },
+    "version": {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+    },
+    "cues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Audio Cue",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable cue id."
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["music", "ambient", "sfx"],
+            "description": "Cue category."
+          },
+          "title": {
+            "type": "string",
+            "description": "Human name."
+          },
+          "target": {
+            "type": "object",
+            "description": "Where/how to play the cue.",
+            "properties": {
+              "section_id": {
+                "type": "string",
+                "description": "Narrative section to associate with."
+              },
+              "offset_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Start offset into the section timeline."
+              },
+              "duration_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Optional duration; 0 = until stop condition."
+              },
+              "loop": {
+                "type": "boolean",
+                "default": false
+              },
+              "loop_region_ms": {
+                "type": "object",
+                "properties": {
+                  "start_ms": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "end_ms": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "required": ["start_ms", "end_ms"],
+                  "end_ms": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "End offset for the loop region."
+                  }
+              },
+              "ducking_db": {
+                "type": "number",
+                "description": "Optional narration ducking level while cue plays."
+              }
+            },
+            "additionalProperties": false
+          },
+          "asset": {
+            "type": "object",
+            "description": "Optional pre-rendered asset reference (else, synthetic).",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "checksum": {
+                "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+              }
+            },
+            "additionalProperties": false
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "kind", "target"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["cues"],
+  "additionalProperties": false
+}

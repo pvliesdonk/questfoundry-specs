@@ -1,0 +1,167 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/schemas/manifest/project_manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Manifest",
+  "description": "Cold SoT snapshot manifest enumerating artifacts with checksums and linkage back to state entities.",
+  "$comment": "Lower-layer intent: enable deterministic rebuilds across environments and time; every artifact must be content-addressed.",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "object",
+      "description": "Identity and version line of the project.",
+      "properties": {
+        "project_id": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-_]{1,63}$",
+          "description": "Filesystem-safe handle."
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-facing title."
+        },
+        "version": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+        },
+        "language": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/iso_lang"
+        }
+      },
+      "required": ["project_id", "slug", "title", "version", "language"],
+      "additionalProperties": false
+    },
+    "snapshot": {
+      "type": "object",
+      "description": "Snapshot metadata anchoring determinism.",
+      "properties": {
+        "created_at": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+        },
+        "created_by": {
+          "type": "string",
+          "description": "Orchestrator/agent responsible for snapshot."
+        },
+        "toolchain": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/toolchain"
+        },
+        "inputs_hash": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Context: branches, waivers, sign-offs, etc."
+        }
+      },
+      "required": ["created_at", "toolchain"],
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "array",
+      "description": "Files constituting the snapshot (state shards, manuscripts, plans, renders, packages).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "state.codex",
+              "state.narrative",
+              "state.structure",
+              "state.renders_index",
+              "manuscript.md",
+              "codex.md",
+              "artlist.json",
+              "art_plan.json",
+              "audio_plan.json",
+              "image",
+              "audio",
+              "package.zip",
+              "other"
+            ],
+            "description": "Typed classification for downstream tooling."
+          },
+          "path": {
+            "type": "string",
+            "description": "Relative path within repo or package."
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Bytes; optional sanity check."
+          },
+          "checksum": {
+            "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+          },
+          "refs": {
+            "type": "object",
+            "description": "Optional linkage to narrative/codex entities, enabling provenance queries.",
+            "properties": {
+              "section_id": {
+                "type": "string"
+              },
+              "choice_id": {
+                "type": "string"
+              },
+              "codex_id": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "generator": {
+            "type": "object",
+            "description": "How this artifact was generated (engine + seed).",
+            "properties": {
+              "engine": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": ["kind", "path", "checksum"],
+        "additionalProperties": false
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "description": "Optional shard hashes for quick change detection.",
+      "properties": {
+        "shard_hashes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "stats": {
+      "type": "object",
+      "description": "Optional helpful counts for audits and dashboards.",
+      "properties": {
+        "sections": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "choices": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "codex_entries": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["project", "snapshot", "artifacts"],
+  "additionalProperties": false
+}

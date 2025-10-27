@@ -1,0 +1,96 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/schemas/art/render_record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Render Record (Image/Audio)",
+  "description": "Rich provenance for a single render (image or audio), intended to be referenced from renders_index or artifacts.",
+  "$comment": "Lower-layer: captures prompt versions, engine params, and model hashes for deterministic re-renders and audits.",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": ["image", "audio"],
+      "description": "Render type."
+    },
+    "path": {
+      "type": "string",
+      "description": "Relative file path."
+    },
+    "checksum": {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+    },
+    "generator": {
+      "type": "object",
+      "description": "Engine and seed, plus precise parameters.",
+      "properties": {
+        "engine": {
+          "type": "string",
+          "description": "Backend engine (e.g., a1111, sd3, imagen, tts-xyz)."
+        },
+        "model": {
+          "type": "string",
+          "description": "Model identifier."
+        },
+        "model_hash": {
+          "type": "string",
+          "description": "Exact model hash if available."
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "params": {
+          "type": "object",
+          "description": "Engine-specific parameters (sampler, steps, cfg, temperature, etc.).",
+          "additionalProperties": {
+            "type": ["string", "number", "boolean"]
+          }
+        }
+      },
+      "required": ["engine", "seed"],
+      "additionalProperties": false
+    },
+    "prompt": {
+      "type": "object",
+      "description": "Prompt provenance.",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Prompt schema/version tag."
+        },
+        "positive": {
+          "type": "string",
+          "description": "Positive prompt or instruction text."
+        },
+        "negative": {
+          "type": "string",
+          "description": "Negative prompt / avoid list (images)."
+        },
+        "language": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/iso_lang"
+        }
+      },
+      "additionalProperties": false
+    },
+    "refs": {
+      "type": "object",
+      "description": "Linkage to narrative/codex entities for traceability.",
+      "properties": {
+        "section_id": {
+          "type": "string"
+        },
+        "choice_id": {
+          "type": "string"
+        },
+        "codex_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/provenance"
+    }
+  },
+  "required": ["kind", "path", "checksum", "generator"],
+  "additionalProperties": false
+}

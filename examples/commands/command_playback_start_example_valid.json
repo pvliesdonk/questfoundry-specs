@@ -1,0 +1,13 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Playback.Start.schema.json",
+  "protocol_version": "1.0",
+  "message_type": "Command.Playback.Start",
+  "message_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "created_at": "2025-10-27T12:00:01Z",
+  "sender": "cli",
+  "command_id": "01JBT3E7X1K4M9P7H2D8C6B4A2",
+  "section_id": "S-000",
+  "language": "en",
+  "policy_mode": "deterministic",
+  "seed": 999
+}

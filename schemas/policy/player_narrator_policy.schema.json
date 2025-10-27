@@ -1,0 +1,125 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/schemas/policy/player_narrator_policy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Player/Narrator Policy",
+  "description": "Runtime policy knobs for narrator/player behavior and safety.",
+  "$comment": "Hot-side policy shaping narration output; when mode=deterministic, improv must be effectively disabled to match Cold SoT paths.",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["release", "debug", "deterministic"],
+      "description": "Narration mode."
+    },
+    "language": {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/iso_lang"
+    },
+    "improv": {
+      "type": "object",
+      "description": "Creative deviation controls.",
+      "properties": {
+        "allow": {
+          "type": "boolean",
+          "default": false,
+          "description": "Permit creative deviations from prose."
+        },
+        "deviation_radius": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "0=no deviation; 1=wide latitude."
+        }
+      },
+      "additionalProperties": false
+    },
+    "content_controls": {
+      "type": "object",
+      "properties": {
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 64,
+          "maximum": 4096,
+          "description": "Soft cap for LLM token budget."
+        },
+        "target_style": {
+          "type": "string",
+          "description": "Style hint (e.g., 'book-like', 'tutorial', 'noir')."
+        }
+      },
+      "additionalProperties": false
+    },
+    "safety": {
+      "type": "object",
+      "properties": {
+        "allow_mature": {
+          "type": "boolean",
+          "default": false,
+          "description": "Permit mature content."
+        },
+        "profanity_level": {
+          "type": "string",
+          "enum": ["none", "mild", "moderate", "explicit"],
+          "default": "none"
+        }
+      },
+      "additionalProperties": false
+    },
+    "narration": {
+      "type": "object",
+      "properties": {
+        "voice": {
+          "type": "string",
+          "description": "Display/SSML voice name."
+        },
+        "speed": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 2.0,
+          "default": 1.0,
+          "description": "Playback rate multiplier."
+        }
+      },
+      "additionalProperties": false
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "trace": {
+          "type": "boolean",
+          "default": false,
+          "description": "Emit verbose traces for debugging."
+        },
+        "echo_continuity_tags": {
+          "type": "boolean",
+          "default": true,
+          "description": "Force continuity tags on output events."
+        }
+      },
+      "additionalProperties": false
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "no_placeholders": {
+          "type": "boolean",
+          "default": true,
+          "description": "Prohibit placeholder prose in outputs."
+        },
+        "rewrite_budget": {
+          "type": "object",
+          "properties": {
+            "max_word_delta": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Bound on words changed during guided rewrites."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["mode"],
+  "additionalProperties": false
+}

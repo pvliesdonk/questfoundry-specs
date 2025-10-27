@@ -1,0 +1,39 @@
+{
+  "$schema": "https://questfoundry.liesdonk.nl/v1/schemas/canon/claim_registry.schema.json",
+  "version": "1.2.0",
+  "claims": [
+    {
+      "id": "CLM.001",
+      "subject": "NPC.KARA",
+      "predicate": "rank",
+      "object": "dockmaster",
+      "confidence": 0.9,
+      "status": "asserted",
+      "sources": [
+        {
+          "kind": "section",
+          "ref": "S-003"
+        }
+      ]
+    },
+    {
+      "id": "CLM.002",
+      "subject": "STATION",
+      "predicate": "lockdown",
+      "object": true,
+      "confidence": 0.8,
+      "status": "disputed",
+      "sources": [
+        {
+          "kind": "citation",
+          "ref": "Station Log #8842"
+        }
+      ],
+      "counters": ["CLM.003"]
+    }
+  ],
+  "merge_policy": {
+    "prefer_status_order": ["asserted", "disputed", "retracted"],
+    "min_confidence": 0.5
+  }
+}
