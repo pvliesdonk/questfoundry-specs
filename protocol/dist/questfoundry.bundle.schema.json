@@ -1,0 +1,2095 @@
+{
+  "$comment": "Generated file. Do not edit by hand.",
+  "$defs": {
+    "art.render_record": {
+      "$comment": "Lower-layer: captures prompt versions, engine params, and model hashes for deterministic re-renders and audits.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/schemas/art/render_record.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "description": "Rich provenance for a single render (image or audio), intended to be referenced from renders_index or artifacts.",
+      "properties": {
+        "checksum": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+        },
+        "generator": {
+          "additionalProperties": false,
+          "description": "Engine and seed, plus precise parameters.",
+          "properties": {
+            "engine": {
+              "description": "Backend engine (e.g., a1111, sd3, imagen, tts-xyz).",
+              "type": "string"
+            },
+            "model": {
+              "description": "Model identifier.",
+              "type": "string"
+            },
+            "model_hash": {
+              "description": "Exact model hash if available.",
+              "type": "string"
+            },
+            "params": {
+              "additionalProperties": {
+                "type": ["string", "number", "boolean"]
+              },
+              "description": "Engine-specific parameters (sampler, steps, cfg, temperature, etc.).",
+              "type": "object"
+            },
+            "seed": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": ["engine", "seed"],
+          "type": "object"
+        },
+        "kind": {
+          "description": "Render type.",
+          "enum": ["image", "audio"],
+          "type": "string"
+        },
+        "path": {
+          "description": "Relative file path.",
+          "type": "string"
+        },
+        "prompt": {
+          "additionalProperties": false,
+          "description": "Prompt provenance.",
+          "properties": {
+            "language": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/iso_lang"
+            },
+            "negative": {
+              "description": "Negative prompt / avoid list (images).",
+              "type": "string"
+            },
+            "positive": {
+              "description": "Positive prompt or instruction text.",
+              "type": "string"
+            },
+            "version": {
+              "description": "Prompt schema/version tag.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "provenance": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/provenance"
+        },
+        "refs": {
+          "additionalProperties": false,
+          "description": "Linkage to narrative/codex entities for traceability.",
+          "properties": {
+            "choice_id": {
+              "type": "string"
+            },
+            "codex_id": {
+              "type": "string"
+            },
+            "section_id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": ["kind", "path", "checksum", "generator"],
+      "title": "Render Record (Image/Audio)",
+      "type": "object"
+    },
+    "audio.audio_plan": {
+      "$comment": "Lower-layer: separates intent (plan) from renders; enables live playback engines to schedule audio consistently.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/schemas/audio/audio_plan.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "description": "Plan for music/SFX cues aligned to narrative sections, including loop points and timing hooks.",
+      "properties": {
+        "cues": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "asset": {
+                "additionalProperties": false,
+                "description": "Optional pre-rendered asset reference (else, synthetic).",
+                "properties": {
+                  "checksum": {
+                    "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+                  },
+                  "path": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "id": {
+                "description": "Stable cue id.",
+                "type": "string"
+              },
+              "kind": {
+                "description": "Cue category.",
+                "enum": ["music", "ambient", "sfx"],
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "target": {
+                "additionalProperties": false,
+                "description": "Where/how to play the cue.",
+                "properties": {
+                  "ducking_db": {
+                    "description": "Optional narration ducking level while cue plays.",
+                    "type": "number"
+                  },
+                  "duration_ms": {
+                    "description": "Optional duration; 0 = until stop condition.",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "loop": {
+                    "default": false,
+                    "type": "boolean"
+                  },
+                  "loop_region_ms": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "end_ms": {
+                        "description": "End offset for the loop region.",
+                        "minimum": 1,
+                        "type": "integer"
+                      },
+                      "start_ms": {
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    },
+                    "required": ["start_ms", "end_ms"],
+                    "type": "object"
+                  },
+                  "offset_ms": {
+                    "description": "Start offset into the section timeline.",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "section_id": {
+                    "description": "Narrative section to associate with.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "title": {
+                "description": "Human name.",
+                "type": "string"
+              }
+            },
+            "required": ["id", "kind", "target"],
+            "title": "Audio Cue",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "project_id": {
+          "description": "ULID of the project (optional if embedded).",
+          "type": "string"
+        },
+        "version": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+        }
+      },
+      "required": ["cues"],
+      "title": "Audio Plan",
+      "type": "object"
+    },
+    "canon.claim_registry": {
+      "$comment": "Lower-layer: supports truth maintenance—facts vs counter-claims—with source citations and confidence for authoring tools.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/schemas/canon/claim_registry.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "description": "Structured claims with sources, confidence, counters, and merge policy for the project canon.",
+      "properties": {
+        "claims": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "confidence": {
+                "description": "0..1 confidence score.",
+                "maximum": 1,
+                "minimum": 0,
+                "type": "number"
+              },
+              "counters": {
+                "description": "Claim ids that counter this claim.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "Stable claim id.",
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "object": {
+                "description": "Value of the claim.",
+                "type": ["string", "number", "boolean", "null"]
+              },
+              "predicate": {
+                "description": "Relationship or property name.",
+                "type": "string"
+              },
+              "sources": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "description": "Source type.",
+                      "enum": ["citation", "section", "external"],
+                      "type": "string"
+                    },
+                    "ref": {
+                      "description": "Pointer/URL/section id.",
+                      "type": "string"
+                    },
+                    "snippet": {
+                      "description": "Optional quoted support (short).",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kind", "ref"],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "status": {
+                "description": "Current standing of the claim.",
+                "enum": ["asserted", "disputed", "retracted"],
+                "type": "string"
+              },
+              "subject": {
+                "description": "Entity the claim is about (codex id or free-form).",
+                "type": "string"
+              }
+            },
+            "required": ["id", "subject", "predicate", "status"],
+            "title": "Claim",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "merge_policy": {
+          "additionalProperties": false,
+          "description": "How conflicting claims are resolved for consumers.",
+          "properties": {
+            "min_confidence": {
+              "description": "Drop claims below this value.",
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            "prefer_status_order": {
+              "description": "Order of statuses to prefer (e.g., asserted > disputed > retracted).",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "project_id": {
+          "description": "ULID of the project (optional if embedded).",
+          "type": "string"
+        },
+        "version": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+        }
+      },
+      "required": ["claims"],
+      "title": "Canon / Claim Registry",
+      "type": "object"
+    },
+    "commands.Command.Governance.RequestSignOff": {
+      "$comment": "Sign-offs gate releases; conditions may be attached by stakeholders.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Governance.RequestSignOff.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.command_envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "message_type": {
+              "const": "Command.Governance.RequestSignOff",
+              "type": "string"
+            },
+            "notes": {
+              "description": "Additional info for reviewers.",
+              "type": "string"
+            },
+            "scope": {
+              "description": "Review scope.",
+              "enum": ["manuscript", "art", "audio", "package", "all"],
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "scope"],
+          "type": "object"
+        }
+      ],
+      "description": "Request sign-off on a specific scope (e.g., manuscript).",
+      "title": "Command Governance RequestSignOff"
+    },
+    "commands.Command.Governance.RequestWaiver": {
+      "$comment": "Waivers are time-bound when possible; decisions are logged as events.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Governance.RequestWaiver.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.command_envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "expires_at": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+            },
+            "message_type": {
+              "const": "Command.Governance.RequestWaiver",
+              "type": "string"
+            },
+            "notes": {
+              "description": "Rationale and risk assessment.",
+              "type": "string"
+            },
+            "scope": {
+              "description": "Affected process/document scope.",
+              "type": "string"
+            },
+            "title": {
+              "description": "Short human-readable title.",
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "title", "scope"],
+          "type": "object"
+        }
+      ],
+      "description": "Ask for an exception to a normative constraint or invariant.",
+      "title": "Command Governance RequestWaiver"
+    },
+    "commands.Command.Playback.Choose": {
+      "$comment": "Deterministic replays must validate choice_id exists and conditions are met.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Playback.Choose.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.command_envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "choice_id": {
+              "description": "Chosen option id.",
+              "type": "string"
+            },
+            "from_section_id": {
+              "description": "Current section id.",
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Command.Playback.Choose",
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "from_section_id", "choice_id"],
+          "type": "object"
+        }
+      ],
+      "description": "Select a choice from the current section and advance.",
+      "title": "Command Playback Choose"
+    },
+    "commands.Command.Playback.Jump": {
+      "$comment": "Debug/recovery tool to resynchronize state or inspect branches.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Playback.Jump.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.command_envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "message_type": {
+              "const": "Command.Playback.Jump",
+              "type": "string"
+            },
+            "reason": {
+              "description": "Why the jump occurs.",
+              "enum": ["debug", "deterministic", "manual_override", "recovery", "other"],
+              "type": "string"
+            },
+            "to_section_id": {
+              "description": "Target section id.",
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "to_section_id"],
+          "type": "object"
+        }
+      ],
+      "description": "Jump to a section directly.",
+      "title": "Command Playback Jump"
+    },
+    "commands.Command.Playback.Start": {
+      "$comment": "Cold SoT must contain the target section; policy governs hot-side rendering choices.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Playback.Start.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.command_envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "language": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/iso_lang"
+            },
+            "message_type": {
+              "const": "Command.Playback.Start",
+              "type": "string"
+            },
+            "policy_mode": {
+              "description": "Narration mode.",
+              "enum": ["release", "debug", "deterministic"],
+              "type": "string"
+            },
+            "section_id": {
+              "description": "Section id to begin playback.",
+              "type": "string"
+            },
+            "seed": {
+              "description": "Overrides toolchain.seed if provided.",
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": ["message_type", "section_id"],
+          "type": "object"
+        }
+      ],
+      "description": "Start narrator/player at a specific section with a given policy mode.",
+      "title": "Command Playback Start"
+    },
+    "commands.Command.Release.Go": {
+      "$comment": "Release builds must reference a complete Cold SoT snapshot and manifest with checksums.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Release.Go.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.command_envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "channel": {
+              "description": "Release channel.",
+              "enum": ["internal", "candidate", "public"],
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Command.Release.Go",
+              "type": "string"
+            },
+            "notes": {
+              "description": "Changelog or context.",
+              "type": "string"
+            },
+            "target_version": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+            }
+          },
+          "required": ["message_type", "target_version", "channel"],
+          "type": "object"
+        }
+      ],
+      "description": "Initiate a release for a version/channel.",
+      "title": "Command Release Go"
+    },
+    "defs.command_envelope": {
+      "$comment": "Lower-layer invariant: Commands are idempotent; command_id must be logged and deduplicated by orchestrators.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/command_envelope.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "command_id": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
+            }
+          },
+          "required": ["command_id"],
+          "type": "object"
+        }
+      ],
+      "description": "Envelope specialization for Commands. Adds command_id for idempotency and replay.",
+      "title": "Command Envelope"
+    },
+    "defs.common": {
+      "$comment": "Lower-layer mapping: IDs and determinism anchors from Cold SoT; timestamps are RFC3339; language is BCP47; checksums are content-addressable (sha256 only for now).",
+      "$defs": {
+        "checksum": {
+          "$comment": "Lower-layer integrity: sha256 is required to enable deterministic rebuilds; other algos can be added in future majors.",
+          "additionalProperties": false,
+          "description": "Content-addressable integrity record for files/blobs.",
+          "properties": {
+            "algo": {
+              "description": "Hash algorithm.",
+              "enum": ["sha256"],
+              "type": "string"
+            },
+            "value": {
+              "description": "Hex-encoded digest.",
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            }
+          },
+          "required": ["algo", "value"],
+          "title": "Checksum",
+          "type": "object"
+        },
+        "iso_lang": {
+          "$comment": "Cold SoT supports multilingual works; narrator/player must honor this tag.",
+          "description": "Language tag per BCP 47; examples: en, en-US, nl.",
+          "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$",
+          "title": "Language (BCP47)",
+          "type": "string"
+        },
+        "provenance": {
+          "$comment": "Lower-layer auditability: tie outputs back to orchestrator/agents and input hashes.",
+          "additionalProperties": false,
+          "description": "Origin trail: who/what created the artifact and from which inputs.",
+          "properties": {
+            "created_at": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+            },
+            "created_by": {
+              "description": "Agent/orchestrator id.",
+              "type": "string"
+            },
+            "inputs_hash": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+            },
+            "notes": {
+              "description": "Human notes about context/decisions.",
+              "type": "string"
+            }
+          },
+          "required": ["created_at"],
+          "title": "Provenance",
+          "type": "object"
+        },
+        "rfc3339": {
+          "$comment": "Hot SoT logs and governance events use RFC3339 for consistent ordering.",
+          "description": "RFC 3339 date-time string. Use UTC with 'Z' when possible.",
+          "format": "date-time",
+          "title": "RFC3339 Timestamp",
+          "type": "string"
+        },
+        "semver": {
+          "$comment": "Cold SoT snapshots and releases are semantically versioned. Pre-release/build metadata supported.",
+          "description": "Semantic Versioning per semver.org (no leading 'v').",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z-.]+)?(?:\\+[0-9A-Za-z-.]+)?$",
+          "title": "SemVer",
+          "type": "string"
+        },
+        "toolchain": {
+          "$comment": "Cold SoT requires recording toolchain + seed to replay renders and prose generation faithfully.",
+          "additionalProperties": false,
+          "description": "Determinism-critical inputs: models, engines, router, seed, and optional extensions.",
+          "properties": {
+            "audio_engine": {
+              "description": "TTS/Audio engine slug.",
+              "type": "string"
+            },
+            "extensions": {
+              "additionalProperties": {
+                "type": ["string", "number", "boolean"]
+              },
+              "description": "Free-form hints: safety modes, sampler names, temperature, etc.",
+              "type": "object"
+            },
+            "image_engine": {
+              "description": "Image generation backend (e.g., a1111, sd3, imagen).",
+              "type": "string"
+            },
+            "llm": {
+              "description": "Provider/model slug, e.g., openai:gpt-5-2025-10-01",
+              "type": "string"
+            },
+            "router": {
+              "description": "Model router profile (e.g., litellm group).",
+              "type": "string"
+            },
+            "seed": {
+              "description": "Global seed used across phases unless overridden.",
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": ["seed"],
+          "title": "Toolchain",
+          "type": "object"
+        },
+        "ulid": {
+          "$comment": "Chosen over UUIDv4 to enable ordered logs and snapshot diffs.",
+          "description": "Universally unique, lexicographically sortable identifier (26 chars).",
+          "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+          "title": "ULID",
+          "type": "string"
+        }
+      },
+      "$id": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "description": "Reusable primitives used across protocol messages and state. These types are stable and versioned with the major protocol line.",
+      "title": "Common Definitions"
+    },
+    "defs.envelope": {
+      "$comment": "Hot SoT: all runtime traffic must be enveloped to support tracing, audit, and correlation across agents.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "description": "Outer envelope for all protocol messages (Events and Commands). Establishes identity, time, and sender.",
+      "properties": {
+        "continuity_tags": {
+          "description": "Sticky tags for correlating multi-step flows (e.g., 'release:1.2.0').",
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+        },
+        "message_id": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
+        },
+        "message_type": {
+          "description": "Qualified type, e.g., Event.Playback.Started or Command.Release.Go.",
+          "pattern": "^(Event|Command)\\.[A-Za-z]+(\\.[A-Za-z]+)*$",
+          "type": "string"
+        },
+        "parent_trace_id": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "description": "Protocol line (major.minor).",
+          "type": "string"
+        },
+        "sender": {
+          "description": "Emitter id (agent/orchestrator/validator/router).",
+          "type": "string"
+        },
+        "trace_id": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
+        }
+      },
+      "required": ["protocol_version", "message_type", "message_id", "created_at", "sender"],
+      "title": "Message Envelope",
+      "type": "object"
+    },
+    "events.Event.Build.Snapshot": {
+      "allOf": [
+        {
+          "$ref": "../defs/envelope.json"
+        },
+        {
+          "properties": {
+            "artifact_uri": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Build.Snapshot"
+            },
+            "sot_hash": {
+              "type": "string"
+            }
+          },
+          "required": ["artifact_uri"],
+          "type": "object"
+        }
+      ],
+      "title": "Build Snapshot"
+    },
+    "events.Event.Cycle.Opened": {
+      "$comment": "",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Cycle.Opened.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "cycle_id": {
+              "description": "ULID for the cycle.",
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Cycle.Opened",
+              "type": "string"
+            },
+            "project_id": {
+              "description": "ULID for the project.",
+              "type": "string"
+            },
+            "reason": {
+              "description": "Optional human note.",
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "cycle_id", "project_id"],
+          "type": "object"
+        }
+      ],
+      "description": "A new authoring/review cycle is opened for a project.",
+      "title": "Event Cycle Opened"
+    },
+    "events.Event.Playback.Advanced": {
+      "$comment": "Emit exactly once per successful choice application; used by transcripts and analytics.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Playback.Advanced.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "choice_id": {
+              "type": "string"
+            },
+            "from_section_id": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Playback.Advanced",
+              "type": "string"
+            },
+            "to_section_id": {
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "from_section_id", "to_section_id", "choice_id"],
+          "type": "object"
+        }
+      ],
+      "description": "Advanced by choosing an option to move to a next section.",
+      "title": "Event Playback Advanced"
+    },
+    "events.Event.Playback.Completed": {
+      "$comment": "Include path length for quick audits.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Playback.Completed.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "end_section_id": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Playback.Completed",
+              "type": "string"
+            },
+            "path_length": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": ["message_type", "end_section_id"],
+          "type": "object"
+        }
+      ],
+      "description": "Reached a terminal section / end of path.",
+      "title": "Event Playback Completed"
+    },
+    "events.Event.Playback.Feedback": {
+      "allOf": [
+        {
+          "$ref": "../defs/envelope.json"
+        },
+        {
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Playback.Feedback"
+            }
+          },
+          "required": ["category", "message"],
+          "type": "object"
+        }
+      ],
+      "title": "Playback Feedback"
+    },
+    "events.Event.Playback.Started": {
+      "$comment": "Hot SoT: emitted after Command.Playback.Start or on auto-start with session creation.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Playback.Started.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "language": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/iso_lang"
+            },
+            "message_type": {
+              "const": "Event.Playback.Started",
+              "type": "string"
+            },
+            "policy_mode": {
+              "enum": ["release", "debug", "deterministic"],
+              "type": "string"
+            },
+            "section_id": {
+              "description": "Starting section id.",
+              "type": "string"
+            },
+            "seed": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": ["message_type", "section_id"],
+          "type": "object"
+        }
+      ],
+      "description": "Narrator/player started at a section.",
+      "title": "Event Playback Started"
+    },
+    "events.Event.Playback.SyncDrift": {
+      "$comment": "Used by determinism auditors; downstream may auto-correct or flag session.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Playback.SyncDrift.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "actual_section_id": {
+              "type": "string"
+            },
+            "drift_reason": {
+              "enum": ["policy_improv", "determinism_break", "bug", "manual_override", "unknown"],
+              "type": "string"
+            },
+            "expected_section_id": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Playback.SyncDrift",
+              "type": "string"
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "expected_section_id", "actual_section_id", "drift_reason"],
+          "type": "object"
+        }
+      ],
+      "description": "Detected drift between expected and actual section (e.g., improv or determinism break).",
+      "title": "Event Playback SyncDrift"
+    },
+    "events.Event.Query.Stakeholder": {
+      "$comment": "",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Query.Stakeholder.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "category": {
+              "enum": ["rights", "content_policy", "safety", "scope", "dependencies", "other"],
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Query.Stakeholder",
+              "type": "string"
+            },
+            "question": {
+              "type": "string"
+            },
+            "rationale": {
+              "type": "string"
+            },
+            "ttl_hours": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": ["message_type", "category", "question"],
+          "type": "object"
+        }
+      ],
+      "description": "Question sent to stakeholders for rights/policy/scope/dependency decisions.",
+      "title": "Event Query Stakeholder"
+    },
+    "events.Event.Release.Blocked": {
+      "$comment": "Reasons should be structured where possible for dashboards.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Release.Blocked.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "message_type": {
+              "const": "Event.Release.Blocked",
+              "type": "string"
+            },
+            "reasons": {
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "target_version": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+            }
+          },
+          "required": ["message_type", "target_version", "reasons"],
+          "type": "object"
+        }
+      ],
+      "description": "Release blocked for a target version.",
+      "title": "Event Release Blocked"
+    },
+    "events.Event.Release.Go": {
+      "$comment": "Use with snapshot manifest to build reproducible packages.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Release.Go.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "channel": {
+              "enum": ["internal", "candidate", "public"],
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Release.Go",
+              "type": "string"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "target_version": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+            }
+          },
+          "required": ["message_type", "target_version", "channel"],
+          "type": "object"
+        }
+      ],
+      "description": "Release go decision for target version and channel.",
+      "title": "Event Release Go"
+    },
+    "events.Event.Release.Published": {
+      "$comment": "Artifact URL may be internal (e.g., object storage) or public CDN.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Release.Published.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "artifact_hash": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+            },
+            "artifact_url": {
+              "format": "uri",
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Release.Published",
+              "type": "string"
+            },
+            "version": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+            }
+          },
+          "required": ["message_type", "version", "artifact_url"],
+          "type": "object"
+        }
+      ],
+      "description": "Release published with artifact and checksum.",
+      "title": "Event Release Published"
+    },
+    "events.Event.Response.Stakeholder": {
+      "$comment": "",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Response.Stakeholder.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "decision": {
+              "enum": ["approve", "deny", "defer", "info"],
+              "type": "string"
+            },
+            "in_reply_to": {
+              "description": "message_id (ULID) of the query.",
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Response.Stakeholder",
+              "type": "string"
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "in_reply_to", "decision"],
+          "type": "object"
+        }
+      ],
+      "description": "Stakeholder response to a prior query.",
+      "title": "Event Response Stakeholder"
+    },
+    "events.Event.SignOff.Denied": {
+      "$comment": "Include reasons to feed back into feedback loops.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.SignOff.Denied.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "denied_by": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.SignOff.Denied",
+              "type": "string"
+            },
+            "reasons": {
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "scope": {
+              "enum": ["manuscript", "art", "audio", "package", "all"],
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "scope", "denied_by", "reasons"],
+          "type": "object"
+        }
+      ],
+      "description": "Sign-off denied for a scope.",
+      "title": "Event SignOff Denied"
+    },
+    "events.Event.SignOff.Granted": {
+      "$comment": "Gate for release; conditions may be attached.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.SignOff.Granted.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "conditions": {
+              "description": "Optional conditions/notes.",
+              "type": "string"
+            },
+            "granted_by": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.SignOff.Granted",
+              "type": "string"
+            },
+            "scope": {
+              "enum": ["manuscript", "art", "audio", "package", "all"],
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "scope", "granted_by"],
+          "type": "object"
+        }
+      ],
+      "description": "Sign-off granted for a scope.",
+      "title": "Event SignOff Granted"
+    },
+    "events.Event.Validation.Report": {
+      "$comment": "Used by validators after checking Cold SoT shards or release artifacts. Results should be stable and reproducible.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Validation.Report.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "issues": {
+              "description": "Machine-parseable issues for tooling and dashboards.",
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "description": "Short machine code (e.g., FEEDBACK.TYPE.MISMATCH).",
+                    "type": "string"
+                  },
+                  "hint": {
+                    "description": "Optional remediation hint.",
+                    "type": "string"
+                  },
+                  "message": {
+                    "description": "Human-readable explanation.",
+                    "type": "string"
+                  },
+                  "path": {
+                    "description": "JSON Pointer into validated doc (if applicable).",
+                    "type": "string"
+                  },
+                  "severity": {
+                    "enum": ["error", "warning", "info"],
+                    "type": "string"
+                  }
+                },
+                "required": ["code", "severity", "message"],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "message_type": {
+              "const": "Event.Validation.Report",
+              "type": "string"
+            },
+            "scope": {
+              "description": "What was validated.",
+              "enum": ["manuscript", "codex", "art", "audio", "package", "state"],
+              "type": "string"
+            },
+            "status": {
+              "description": "Overall outcome.",
+              "enum": ["pass", "fail", "warn"],
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "scope", "status"],
+          "type": "object"
+        }
+      ],
+      "description": "Validation summary for a given scope (manuscript/codex/art/audio/package/state).",
+      "title": "Event Validation Report"
+    },
+    "events.Event.Waiver.Approved": {
+      "$comment": "Approver is recorded for auditability.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Waiver.Approved.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "approved_by": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Waiver.Approved",
+              "type": "string"
+            },
+            "waiver_id": {
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "waiver_id", "approved_by"],
+          "type": "object"
+        }
+      ],
+      "description": "A waiver request has been approved.",
+      "title": "Event Waiver Approved"
+    },
+    "events.Event.Waiver.Denied": {
+      "$comment": "Denials should include reasons.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Waiver.Denied.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "denied_by": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Event.Waiver.Denied",
+              "type": "string"
+            },
+            "reasons": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "waiver_id": {
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "waiver_id", "denied_by"],
+          "type": "object"
+        }
+      ],
+      "description": "A waiver request has been denied.",
+      "title": "Event Waiver Denied"
+    },
+    "events.Event.Waiver.Recorded": {
+      "$comment": "Track waivers as temporary exceptions; may require approval.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Waiver.Recorded.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "expires_at": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+            },
+            "message_type": {
+              "const": "Event.Waiver.Recorded",
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "waiver_id": {
+              "description": "ULID of the waiver record.",
+              "type": "string"
+            }
+          },
+          "required": ["message_type", "waiver_id", "title", "scope"],
+          "type": "object"
+        }
+      ],
+      "description": "A waiver request has been recorded.",
+      "title": "Event Waiver Recorded"
+    },
+    "feedback.Feedback.SectionRewrite.Request": {
+      "$comment": "Lower-layer: bridges Hot SoT (feedback loop) and Cold SoT (narrative shard). Intended to be queued by orchestrator and consumed by a rewrite agent.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/Feedback.SectionRewrite.Request.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "constraints": {
+              "additionalProperties": false,
+              "description": "Hard bounds for the rewrite action.",
+              "properties": {
+                "keep_anchors": {
+                  "default": true,
+                  "description": "Preserve internal anchors and cross-refs.",
+                  "type": "boolean"
+                },
+                "max_word_delta": {
+                  "description": "Absolute bound on net word change.",
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "preserve_codewords": {
+                  "default": true,
+                  "description": "Do not alter codeword semantics.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "instructions": {
+              "description": "Targeted rewrite guidance tied to refs.section_id (style, pacing, beats).",
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Feedback.SectionRewrite.Request",
+              "type": "string"
+            },
+            "refs": {
+              "additionalProperties": false,
+              "description": "Target references into the Cold SoT.",
+              "properties": {
+                "choice_ids": {
+                  "description": "Optional subset of choices to rewrite.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "section_id": {
+                  "description": "ID of the section to rewrite.",
+                  "type": "string"
+                }
+              },
+              "required": ["section_id"],
+              "type": "object"
+            },
+            "ttl_cycles": {
+              "description": "Time-to-live in agent cycles; after this, drop or escalate.",
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": ["message_type", "refs", "instructions"],
+          "type": "object"
+        }
+      ],
+      "description": "Guided prose rewrite request for a specific narrative section. Downstream tools should obey constraints and ttl cycles.",
+      "title": "Feedback Section Rewrite Request",
+      "type": "object"
+    },
+    "feedback.Feedback.SectionRewrite.Response": {
+      "$comment": "Lower-layer: the response should update the Cold SoT section text (and choices if needed) and report deltas for audits.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/Feedback.SectionRewrite.Response.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "$ref": "#/$defs/defs.envelope"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "delta_summary": {
+              "description": "Human-readable summary of changes.",
+              "type": "string"
+            },
+            "in_reply_to": {
+              "description": "message_id (ULID) of the originating Request.",
+              "type": "string"
+            },
+            "message_type": {
+              "const": "Feedback.SectionRewrite.Response",
+              "type": "string"
+            },
+            "result_path": {
+              "description": "Filesystem path to the updated section JSON (current.json).",
+              "type": "string"
+            },
+            "token_delta": {
+              "description": "Optional token count delta (if measured).",
+              "type": "integer"
+            },
+            "violations": {
+              "description": "Constraint breaches (if any) detected by the agent or validator.",
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": ["code", "message"],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "word_delta": {
+              "description": "Net word count change across edited fields.",
+              "type": "integer"
+            }
+          },
+          "required": ["message_type", "in_reply_to", "result_path"],
+          "type": "object"
+        }
+      ],
+      "description": "Reply to a rewrite request with updated files and change summary.",
+      "title": "Feedback Section Rewrite Response",
+      "type": "object"
+    },
+    "feedback.feedback": {
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/feedback.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "description": "Union schema covering both Section Rewrite Request and Response messages.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/feedback.Feedback.SectionRewrite.Request"
+        },
+        {
+          "$ref": "#/$defs/feedback.Feedback.SectionRewrite.Response"
+        }
+      ],
+      "title": "Feedback Messages (Section Rewrite)"
+    },
+    "manifest.project_manifest": {
+      "$comment": "Lower-layer intent: enable deterministic rebuilds across environments and time; every artifact must be content-addressed.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/schemas/manifest/project_manifest.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "description": "Cold SoT snapshot manifest enumerating artifacts with checksums and linkage back to state entities.",
+      "properties": {
+        "artifacts": {
+          "description": "Files constituting the snapshot (state shards, manuscripts, plans, renders, packages).",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "checksum": {
+                "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+              },
+              "generator": {
+                "additionalProperties": false,
+                "description": "How this artifact was generated (engine + seed).",
+                "properties": {
+                  "engine": {
+                    "type": "string"
+                  },
+                  "seed": {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "kind": {
+                "description": "Typed classification for downstream tooling.",
+                "enum": [
+                  "state.codex",
+                  "state.narrative",
+                  "state.structure",
+                  "state.renders_index",
+                  "manuscript.md",
+                  "codex.md",
+                  "artlist.json",
+                  "art_plan.json",
+                  "audio_plan.json",
+                  "image",
+                  "audio",
+                  "package.zip",
+                  "other"
+                ],
+                "type": "string"
+              },
+              "path": {
+                "description": "Relative path within repo or package.",
+                "type": "string"
+              },
+              "refs": {
+                "additionalProperties": false,
+                "description": "Optional linkage to narrative/codex entities, enabling provenance queries.",
+                "properties": {
+                  "choice_id": {
+                    "type": "string"
+                  },
+                  "codex_id": {
+                    "type": "string"
+                  },
+                  "section_id": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "size": {
+                "description": "Bytes; optional sanity check.",
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": ["kind", "path", "checksum"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "integrity": {
+          "additionalProperties": false,
+          "description": "Optional shard hashes for quick change detection.",
+          "properties": {
+            "shard_hashes": {
+              "additionalProperties": {
+                "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "project": {
+          "additionalProperties": false,
+          "description": "Identity and version line of the project.",
+          "properties": {
+            "language": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/iso_lang"
+            },
+            "project_id": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/ulid"
+            },
+            "slug": {
+              "description": "Filesystem-safe handle.",
+              "pattern": "^[a-z0-9][a-z0-9-_]{1,63}$",
+              "type": "string"
+            },
+            "title": {
+              "description": "Human-facing title.",
+              "type": "string"
+            },
+            "version": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+            }
+          },
+          "required": ["project_id", "slug", "title", "version", "language"],
+          "type": "object"
+        },
+        "snapshot": {
+          "additionalProperties": false,
+          "description": "Snapshot metadata anchoring determinism.",
+          "properties": {
+            "created_at": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+            },
+            "created_by": {
+              "description": "Orchestrator/agent responsible for snapshot.",
+              "type": "string"
+            },
+            "inputs_hash": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+            },
+            "notes": {
+              "description": "Context: branches, waivers, sign-offs, etc.",
+              "type": "string"
+            },
+            "toolchain": {
+              "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/toolchain"
+            }
+          },
+          "required": ["created_at", "toolchain"],
+          "type": "object"
+        },
+        "stats": {
+          "additionalProperties": false,
+          "description": "Optional helpful counts for audits and dashboards.",
+          "properties": {
+            "choices": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "codex_entries": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "sections": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": ["project", "snapshot", "artifacts"],
+      "title": "Project Manifest",
+      "type": "object"
+    },
+    "playback.playback_transcript": {
+      "$comment": "Lower-layer: enables exact replay, drift diagnosis, and bug reproduction across narrators/models.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/playback/playback_transcript.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "description": "Deterministic, replayable log of a play session with policy snapshots and codeword diffs.",
+      "properties": {
+        "ended_at": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+        },
+        "events": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "choice_id": {
+                "type": "string"
+              },
+              "codeword_diff": {
+                "additionalProperties": {
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "description": "State changes (set/unset/counter/enum).",
+                "type": "object"
+              },
+              "from_section_id": {
+                "type": "string"
+              },
+              "kind": {
+                "description": "Event kind.",
+                "enum": ["start", "advance", "jump", "complete", "drift", "note"],
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "policy_snapshot": {
+                "$ref": "#/$defs/policy.player_narrator_policy",
+                "description": "Optional snapshot if changed during session."
+              },
+              "to_section_id": {
+                "type": "string"
+              },
+              "ts": {
+                "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339",
+                "description": "Timestamp of the event."
+              }
+            },
+            "required": ["ts", "kind"],
+            "title": "Transcript Event",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "policy": {
+          "$ref": "#/$defs/policy.player_narrator_policy"
+        },
+        "project_id": {
+          "description": "ULID of the project.",
+          "type": "string"
+        },
+        "session_id": {
+          "description": "ULID for this session.",
+          "type": "string"
+        },
+        "started_at": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+        }
+      },
+      "required": ["session_id", "started_at", "events"],
+      "title": "Playback Transcript / Session Log",
+      "type": "object"
+    },
+    "policy.player_narrator_policy": {
+      "$comment": "Hot-side policy shaping narration output; when mode=deterministic, improv must be effectively disabled to match Cold SoT paths.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/schemas/policy/player_narrator_policy.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "description": "Runtime policy knobs for narrator/player behavior and safety.",
+      "properties": {
+        "constraints": {
+          "additionalProperties": false,
+          "properties": {
+            "no_placeholders": {
+              "default": true,
+              "description": "Prohibit placeholder prose in outputs.",
+              "type": "boolean"
+            },
+            "rewrite_budget": {
+              "additionalProperties": false,
+              "properties": {
+                "max_word_delta": {
+                  "description": "Bound on words changed during guided rewrites.",
+                  "minimum": 0,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "content_controls": {
+          "additionalProperties": false,
+          "properties": {
+            "max_tokens": {
+              "description": "Soft cap for LLM token budget.",
+              "maximum": 4096,
+              "minimum": 64,
+              "type": "integer"
+            },
+            "target_style": {
+              "description": "Style hint (e.g., 'book-like', 'tutorial', 'noir').",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "improv": {
+          "additionalProperties": false,
+          "description": "Creative deviation controls.",
+          "properties": {
+            "allow": {
+              "default": false,
+              "description": "Permit creative deviations from prose.",
+              "type": "boolean"
+            },
+            "deviation_radius": {
+              "description": "0=no deviation; 1=wide latitude.",
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "language": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/iso_lang"
+        },
+        "logging": {
+          "additionalProperties": false,
+          "properties": {
+            "echo_continuity_tags": {
+              "default": true,
+              "description": "Force continuity tags on output events.",
+              "type": "boolean"
+            },
+            "trace": {
+              "default": false,
+              "description": "Emit verbose traces for debugging.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "mode": {
+          "description": "Narration mode.",
+          "enum": ["release", "debug", "deterministic"],
+          "type": "string"
+        },
+        "narration": {
+          "additionalProperties": false,
+          "properties": {
+            "speed": {
+              "default": 1.0,
+              "description": "Playback rate multiplier.",
+              "maximum": 2.0,
+              "minimum": 0.5,
+              "type": "number"
+            },
+            "voice": {
+              "description": "Display/SSML voice name.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "safety": {
+          "additionalProperties": false,
+          "properties": {
+            "allow_mature": {
+              "default": false,
+              "description": "Permit mature content.",
+              "type": "boolean"
+            },
+            "profanity_level": {
+              "default": "none",
+              "enum": ["none", "mild", "moderate", "explicit"],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": ["mode"],
+      "title": "Player/Narrator Policy",
+      "type": "object"
+    },
+    "state.codeword_registry": {
+      "$comment": "Lower-layer: explicit registry prevents drift and enables validators to check conditions/effects against a canonical set.",
+      "$id": "https://questfoundry.liesdonk.nl/v1/schemas/state/codeword_registry.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "description": "Global registry of narrative codewords/flags with scopes, defaults, and rules for acquire/revoke.",
+      "properties": {
+        "entries": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "acquire_rules": {
+                "description": "Narrative conditions to set/raise this.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "conflicts": {
+                "description": "Codeword ids that may not co-exist.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "default_state": {
+                "description": "Initial value.",
+                "oneOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "enum_values": {
+                "description": "Allowed values when kind=enum.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "Stable identifier (e.g., CW.SECURITY.CLEARANCE.ALPHA).",
+                "type": "string"
+              },
+              "implies": {
+                "description": "Codeword ids automatically implied when present.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "kind": {
+                "description": "State representation.",
+                "enum": ["boolean", "counter", "enum"],
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "revoke_rules": {
+                "description": "Narrative conditions to clear/lower this.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "scope": {
+                "description": "Where this codeword applies.",
+                "enum": ["global", "section", "act", "beat", "character", "item", "faction"],
+                "type": "string"
+              },
+              "title": {
+                "description": "Human-friendly label.",
+                "type": "string"
+              }
+            },
+            "required": ["id", "scope", "kind"],
+            "title": "Codeword",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "project_id": {
+          "description": "ULID of the project (optional if embedded).",
+          "type": "string"
+        },
+        "version": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+        }
+      },
+      "required": ["entries"],
+      "title": "Codeword / Flag Registry",
+      "type": "object"
+    },
+    "state.project_state": {
+      "$id": "project_state.schema.json",
+      "definitions": {
+        "choice": {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "leads_to": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": ["id", "text"],
+          "type": "object"
+        },
+        "codexEntry": {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "text": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": ["id", "text"],
+          "type": "object"
+        },
+        "narrativeShard": {
+          "properties": {
+            "choices": {
+              "items": {
+                "$ref": "#/definitions/choice"
+              },
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "origin": {
+                  "type": "string"
+                },
+                "persist": {
+                  "type": "boolean"
+                },
+                "transient": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "scenes": {
+              "items": {
+                "$ref": "#/definitions/section"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "section": {
+          "properties": {
+            "choices": {
+              "items": {
+                "$ref": "#/definitions/choice"
+              },
+              "type": "array"
+            },
+            "content": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": ["id", "content"],
+          "type": "object"
+        }
+      },
+      "properties": {
+        "shards": {
+          "properties": {
+            "audio_index": {
+              "type": "object"
+            },
+            "codex": {
+              "properties": {
+                "entries": {
+                  "items": {
+                    "$ref": "#/definitions/codexEntry"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "narrative": {
+              "$ref": "#/definitions/narrativeShard"
+            },
+            "renders_index": {
+              "type": "object"
+            },
+            "structure": {
+              "properties": {
+                "acts": {
+                  "type": "integer"
+                },
+                "beats": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "title": "Project State",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Machine-generated bundle of Questfoundry protocol schemas. Regenerate via tools/build_schema_artifacts.py.",
+  "title": "Questfoundry Protocol Schemas",
+  "type": "object"
+}

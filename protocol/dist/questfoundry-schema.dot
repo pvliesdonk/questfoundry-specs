@@ -1,0 +1,103 @@
+digraph QuestfoundrySchemas {
+  rankdir=LR;
+  node [shape=box, style=rounded, fontname="Helvetica", fontsize=10];
+  subgraph cluster_art {
+    label="Art";
+    "art.render_record";
+  }
+  subgraph cluster_audio {
+    label="Audio";
+    "audio.audio_plan";
+  }
+  subgraph cluster_canon {
+    label="Canon";
+    "canon.claim_registry";
+  }
+  subgraph cluster_commands {
+    label="Commands";
+    "commands.Command.Governance.RequestSignOff";
+    "commands.Command.Governance.RequestWaiver";
+    "commands.Command.Playback.Choose";
+    "commands.Command.Playback.Jump";
+    "commands.Command.Playback.Start";
+    "commands.Command.Release.Go";
+  }
+  subgraph cluster_defs {
+    label="Defs";
+    "defs.command_envelope";
+    "defs.common";
+    "defs.envelope";
+  }
+  subgraph cluster_events {
+    label="Events";
+    "events.Event.Build.Snapshot";
+    "events.Event.Cycle.Opened";
+    "events.Event.Playback.Advanced";
+    "events.Event.Playback.Completed";
+    "events.Event.Playback.Feedback";
+    "events.Event.Playback.Started";
+    "events.Event.Playback.SyncDrift";
+    "events.Event.Query.Stakeholder";
+    "events.Event.Release.Blocked";
+    "events.Event.Release.Go";
+    "events.Event.Release.Published";
+    "events.Event.Response.Stakeholder";
+    "events.Event.SignOff.Denied";
+    "events.Event.SignOff.Granted";
+    "events.Event.Validation.Report";
+    "events.Event.Waiver.Approved";
+    "events.Event.Waiver.Denied";
+    "events.Event.Waiver.Recorded";
+  }
+  subgraph cluster_feedback {
+    label="Feedback";
+    "feedback.Feedback.SectionRewrite.Request";
+    "feedback.Feedback.SectionRewrite.Response";
+    "feedback.feedback";
+  }
+  subgraph cluster_manifest {
+    label="Manifest";
+    "manifest.project_manifest";
+  }
+  subgraph cluster_playback {
+    label="Playback";
+    "playback.playback_transcript";
+  }
+  subgraph cluster_policy {
+    label="Policy";
+    "policy.player_narrator_policy";
+  }
+  subgraph cluster_state {
+    label="State";
+    "state.codeword_registry";
+    "state.project_state";
+  }
+  "commands.Command.Governance.RequestSignOff" -> "defs.command_envelope";
+  "commands.Command.Governance.RequestWaiver" -> "defs.command_envelope";
+  "commands.Command.Playback.Choose" -> "defs.command_envelope";
+  "commands.Command.Playback.Jump" -> "defs.command_envelope";
+  "commands.Command.Playback.Start" -> "defs.command_envelope";
+  "commands.Command.Release.Go" -> "defs.command_envelope";
+  "defs.command_envelope" -> "defs.envelope";
+  "events.Event.Cycle.Opened" -> "defs.envelope";
+  "events.Event.Playback.Advanced" -> "defs.envelope";
+  "events.Event.Playback.Completed" -> "defs.envelope";
+  "events.Event.Playback.Started" -> "defs.envelope";
+  "events.Event.Playback.SyncDrift" -> "defs.envelope";
+  "events.Event.Query.Stakeholder" -> "defs.envelope";
+  "events.Event.Release.Blocked" -> "defs.envelope";
+  "events.Event.Release.Go" -> "defs.envelope";
+  "events.Event.Release.Published" -> "defs.envelope";
+  "events.Event.Response.Stakeholder" -> "defs.envelope";
+  "events.Event.SignOff.Denied" -> "defs.envelope";
+  "events.Event.SignOff.Granted" -> "defs.envelope";
+  "events.Event.Validation.Report" -> "defs.envelope";
+  "events.Event.Waiver.Approved" -> "defs.envelope";
+  "events.Event.Waiver.Denied" -> "defs.envelope";
+  "events.Event.Waiver.Recorded" -> "defs.envelope";
+  "feedback.Feedback.SectionRewrite.Request" -> "defs.envelope";
+  "feedback.Feedback.SectionRewrite.Response" -> "defs.envelope";
+  "feedback.feedback" -> "feedback.Feedback.SectionRewrite.Request";
+  "feedback.feedback" -> "feedback.Feedback.SectionRewrite.Response";
+  "playback.playback_transcript" -> "policy.player_narrator_policy";
+}

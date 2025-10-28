@@ -1,0 +1,92 @@
+@startuml
+left to right direction
+skinparam componentStyle rectangle
+package "Art" {
+  component "art.render_record" as art_render_record
+}
+package "Audio" {
+  component "audio.audio_plan" as audio_audio_plan
+}
+package "Canon" {
+  component "canon.claim_registry" as canon_claim_registry
+}
+package "Commands" {
+  component "commands.Command.Governance.RequestSignOff" as commands_Command_Governance_RequestSignOff
+  component "commands.Command.Governance.RequestWaiver" as commands_Command_Governance_RequestWaiver
+  component "commands.Command.Playback.Choose" as commands_Command_Playback_Choose
+  component "commands.Command.Playback.Jump" as commands_Command_Playback_Jump
+  component "commands.Command.Playback.Start" as commands_Command_Playback_Start
+  component "commands.Command.Release.Go" as commands_Command_Release_Go
+}
+package "Defs" {
+  component "defs.command_envelope" as defs_command_envelope
+  component "defs.common" as defs_common
+  component "defs.envelope" as defs_envelope
+}
+package "Events" {
+  component "events.Event.Build.Snapshot" as events_Event_Build_Snapshot
+  component "events.Event.Cycle.Opened" as events_Event_Cycle_Opened
+  component "events.Event.Playback.Advanced" as events_Event_Playback_Advanced
+  component "events.Event.Playback.Completed" as events_Event_Playback_Completed
+  component "events.Event.Playback.Feedback" as events_Event_Playback_Feedback
+  component "events.Event.Playback.Started" as events_Event_Playback_Started
+  component "events.Event.Playback.SyncDrift" as events_Event_Playback_SyncDrift
+  component "events.Event.Query.Stakeholder" as events_Event_Query_Stakeholder
+  component "events.Event.Release.Blocked" as events_Event_Release_Blocked
+  component "events.Event.Release.Go" as events_Event_Release_Go
+  component "events.Event.Release.Published" as events_Event_Release_Published
+  component "events.Event.Response.Stakeholder" as events_Event_Response_Stakeholder
+  component "events.Event.SignOff.Denied" as events_Event_SignOff_Denied
+  component "events.Event.SignOff.Granted" as events_Event_SignOff_Granted
+  component "events.Event.Validation.Report" as events_Event_Validation_Report
+  component "events.Event.Waiver.Approved" as events_Event_Waiver_Approved
+  component "events.Event.Waiver.Denied" as events_Event_Waiver_Denied
+  component "events.Event.Waiver.Recorded" as events_Event_Waiver_Recorded
+}
+package "Feedback" {
+  component "feedback.Feedback.SectionRewrite.Request" as feedback_Feedback_SectionRewrite_Request
+  component "feedback.Feedback.SectionRewrite.Response" as feedback_Feedback_SectionRewrite_Response
+  component "feedback.feedback" as feedback_feedback
+}
+package "Manifest" {
+  component "manifest.project_manifest" as manifest_project_manifest
+}
+package "Playback" {
+  component "playback.playback_transcript" as playback_playback_transcript
+}
+package "Policy" {
+  component "policy.player_narrator_policy" as policy_player_narrator_policy
+}
+package "State" {
+  component "state.codeword_registry" as state_codeword_registry
+  component "state.project_state" as state_project_state
+}
+commands_Command_Governance_RequestSignOff --> defs_command_envelope
+commands_Command_Governance_RequestWaiver --> defs_command_envelope
+commands_Command_Playback_Choose --> defs_command_envelope
+commands_Command_Playback_Jump --> defs_command_envelope
+commands_Command_Playback_Start --> defs_command_envelope
+commands_Command_Release_Go --> defs_command_envelope
+defs_command_envelope --> defs_envelope
+events_Event_Cycle_Opened --> defs_envelope
+events_Event_Playback_Advanced --> defs_envelope
+events_Event_Playback_Completed --> defs_envelope
+events_Event_Playback_Started --> defs_envelope
+events_Event_Playback_SyncDrift --> defs_envelope
+events_Event_Query_Stakeholder --> defs_envelope
+events_Event_Release_Blocked --> defs_envelope
+events_Event_Release_Go --> defs_envelope
+events_Event_Release_Published --> defs_envelope
+events_Event_Response_Stakeholder --> defs_envelope
+events_Event_SignOff_Denied --> defs_envelope
+events_Event_SignOff_Granted --> defs_envelope
+events_Event_Validation_Report --> defs_envelope
+events_Event_Waiver_Approved --> defs_envelope
+events_Event_Waiver_Denied --> defs_envelope
+events_Event_Waiver_Recorded --> defs_envelope
+feedback_Feedback_SectionRewrite_Request --> defs_envelope
+feedback_Feedback_SectionRewrite_Response --> defs_envelope
+feedback_feedback --> feedback_Feedback_SectionRewrite_Request
+feedback_feedback --> feedback_Feedback_SectionRewrite_Response
+playback_playback_transcript --> policy_player_narrator_policy
+@enduml
