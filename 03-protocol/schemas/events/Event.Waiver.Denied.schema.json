@@ -1,0 +1,35 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Waiver.Denied.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Waiver Denied",
+  "description": "A waiver request has been denied.",
+  "$comment": "Denials should include reasons.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.Waiver.Denied"
+        },
+        "waiver_id": {
+          "type": "string"
+        },
+        "denied_by": {
+          "type": "string"
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["message_type", "waiver_id", "denied_by"],
+      "additionalProperties": false
+    }
+  ]
+}

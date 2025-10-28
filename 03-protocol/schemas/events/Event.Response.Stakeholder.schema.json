@@ -1,0 +1,34 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Response.Stakeholder.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Response Stakeholder",
+  "description": "Stakeholder response to a prior query.",
+  "$comment": "",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.Response.Stakeholder"
+        },
+        "in_reply_to": {
+          "type": "string",
+          "description": "message_id (ULID) of the query."
+        },
+        "decision": {
+          "type": "string",
+          "enum": ["approve", "deny", "defer", "info"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": ["message_type", "in_reply_to", "decision"],
+      "additionalProperties": false
+    }
+  ]
+}

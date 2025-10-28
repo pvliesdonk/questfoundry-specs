@@ -1,0 +1,37 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Query.Stakeholder.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Query Stakeholder",
+  "description": "Question sent to stakeholders for rights/policy/scope/dependency decisions.",
+  "$comment": "",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.Query.Stakeholder"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["rights", "content_policy", "safety", "scope", "dependencies", "other"]
+        },
+        "question": {
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "ttl_hours": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": ["message_type", "category", "question"],
+      "additionalProperties": false
+    }
+  ]
+}

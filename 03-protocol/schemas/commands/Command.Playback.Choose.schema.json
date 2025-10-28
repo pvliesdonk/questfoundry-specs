@@ -1,0 +1,31 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/commands/Command.Playback.Choose.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command Playback Choose",
+  "description": "Select a choice from the current section and advance.",
+  "$comment": "Deterministic replays must validate choice_id exists and conditions are met.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/command_envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Command.Playback.Choose"
+        },
+        "from_section_id": {
+          "type": "string",
+          "description": "Current section id."
+        },
+        "choice_id": {
+          "type": "string",
+          "description": "Chosen option id."
+        }
+      },
+      "required": ["message_type", "from_section_id", "choice_id"],
+      "additionalProperties": false
+    }
+  ]
+}

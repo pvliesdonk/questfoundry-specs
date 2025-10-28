@@ -1,0 +1,37 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.SignOff.Denied.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event SignOff Denied",
+  "description": "Sign-off denied for a scope.",
+  "$comment": "Include reasons to feed back into feedback loops.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.SignOff.Denied"
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["manuscript", "art", "audio", "package", "all"]
+        },
+        "denied_by": {
+          "type": "string"
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["message_type", "scope", "denied_by", "reasons"],
+      "additionalProperties": false
+    }
+  ]
+}

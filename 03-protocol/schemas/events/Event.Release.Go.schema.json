@@ -1,0 +1,33 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Release.Go.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Release Go",
+  "description": "Release go decision for target version and channel.",
+  "$comment": "Use with snapshot manifest to build reproducible packages.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.Release.Go"
+        },
+        "target_version": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+        },
+        "channel": {
+          "type": "string",
+          "enum": ["internal", "candidate", "public"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": ["message_type", "target_version", "channel"],
+      "additionalProperties": false
+    }
+  ]
+}

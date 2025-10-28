@@ -1,0 +1,14 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/feedback.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Feedback Messages (Section Rewrite)",
+  "description": "Union schema covering both Section Rewrite Request and Response messages.",
+  "oneOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/Feedback.SectionRewrite.Request.schema.json"
+    },
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/feedback/Feedback.SectionRewrite.Response.schema.json"
+    }
+  ]
+}
