@@ -4,65 +4,65 @@
   - Machine-generated bundle of Questfoundry protocol schemas. Regenerate via tools/build_schema_artifacts.py.
 - **Questfoundry Protocol Schemas** — `03-protocol/protocol/dist/questfoundry.bundle.schema.json`
   - Machine-generated bundle of Questfoundry protocol schemas. Regenerate via tools/build_schema_artifacts.py.
+- **Command Governance RequestSignOff** — `03-protocol/protocol/schemas/commands/Command.Governance.RequestSignOff.schema.json`
+  - Request sign-off on a specific scope (e.g., manuscript).
+- **Command Governance RequestWaiver** — `03-protocol/protocol/schemas/commands/Command.Governance.RequestWaiver.schema.json`
+  - Ask for an exception to a normative constraint or invariant.
+- **Command Playback Choose** — `03-protocol/protocol/schemas/commands/Command.Playback.Choose.schema.json`
+  - Select a choice from the current section and advance.
+- **Command Playback Jump** — `03-protocol/protocol/schemas/commands/Command.Playback.Jump.schema.json`
+  - Jump to a section directly.
+- **Command Playback Start** — `03-protocol/protocol/schemas/commands/Command.Playback.Start.schema.json`
+  - Start narrator/player at a specific section with a given policy mode.
+- **Command Release Go** — `03-protocol/protocol/schemas/commands/Command.Release.Go.schema.json`
+  - Initiate a release for a version/channel.
 - **Command Envelope** — `03-protocol/protocol/schemas/defs/command_envelope.json`
   - Envelope specialization for Commands. Adds command_id for idempotency and replay.
 - **Message Envelope** — `03-protocol/protocol/schemas/defs/envelope.json`
   - Outer envelope for all protocol messages (Events and Commands). Establishes identity, time, and sender.
-- **Command Governance RequestSignOff** — `03-protocol/schemas/commands/Command.Governance.RequestSignOff.schema.json`
-  - Request sign-off on a specific scope (e.g., manuscript).
-- **Command Governance RequestWaiver** — `03-protocol/schemas/commands/Command.Governance.RequestWaiver.schema.json`
-  - Ask for an exception to a normative constraint or invariant.
-- **Command Playback Choose** — `03-protocol/schemas/commands/Command.Playback.Choose.schema.json`
-  - Select a choice from the current section and advance.
-- **Command Playback Jump** — `03-protocol/schemas/commands/Command.Playback.Jump.schema.json`
-  - Jump to a section directly.
-- **Command Playback Start** — `03-protocol/schemas/commands/Command.Playback.Start.schema.json`
-  - Start narrator/player at a specific section with a given policy mode.
-- **Command Release Go** — `03-protocol/schemas/commands/Command.Release.Go.schema.json`
-  - Initiate a release for a version/channel.
-- **Build Snapshot** — `03-protocol/schemas/events/Event.Build.Snapshot.schema.json`
-- **Event Cycle Opened** — `03-protocol/schemas/events/Event.Cycle.Opened.schema.json`
+- **Build Snapshot** — `03-protocol/protocol/schemas/events/Event.Build.Snapshot.schema.json`
+- **Event Cycle Opened** — `03-protocol/protocol/schemas/events/Event.Cycle.Opened.schema.json`
   - A new authoring/review cycle is opened for a project.
-- **Event Playback Advanced** — `03-protocol/schemas/events/Event.Playback.Advanced.schema.json`
+- **Event Playback Advanced** — `03-protocol/protocol/schemas/events/Event.Playback.Advanced.schema.json`
   - Advanced by choosing an option to move to a next section.
-- **Event Playback Completed** — `03-protocol/schemas/events/Event.Playback.Completed.schema.json`
+- **Event Playback Completed** — `03-protocol/protocol/schemas/events/Event.Playback.Completed.schema.json`
   - Reached a terminal section / end of path.
-- **Playback Feedback** — `03-protocol/schemas/events/Event.Playback.Feedback.schema.json`
-- **Event Playback Started** — `03-protocol/schemas/events/Event.Playback.Started.schema.json`
+- **Playback Feedback** — `03-protocol/protocol/schemas/events/Event.Playback.Feedback.schema.json`
+- **Event Playback Started** — `03-protocol/protocol/schemas/events/Event.Playback.Started.schema.json`
   - Narrator/player started at a section.
-- **Event Playback SyncDrift** — `03-protocol/schemas/events/Event.Playback.SyncDrift.schema.json`
+- **Event Playback SyncDrift** — `03-protocol/protocol/schemas/events/Event.Playback.SyncDrift.schema.json`
   - Detected drift between expected and actual section (e.g., improv or determinism break).
-- **Event Query Stakeholder** — `03-protocol/schemas/events/Event.Query.Stakeholder.schema.json`
+- **Event Query Stakeholder** — `03-protocol/protocol/schemas/events/Event.Query.Stakeholder.schema.json`
   - Question sent to stakeholders for rights/policy/scope/dependency decisions.
-- **Event Release Blocked** — `03-protocol/schemas/events/Event.Release.Blocked.schema.json`
+- **Event Release Blocked** — `03-protocol/protocol/schemas/events/Event.Release.Blocked.schema.json`
   - Release blocked for a target version.
-- **Event Release Go** — `03-protocol/schemas/events/Event.Release.Go.schema.json`
+- **Event Release Go** — `03-protocol/protocol/schemas/events/Event.Release.Go.schema.json`
   - Release go decision for target version and channel.
-- **Event Release Published** — `03-protocol/schemas/events/Event.Release.Published.schema.json`
+- **Event Release Published** — `03-protocol/protocol/schemas/events/Event.Release.Published.schema.json`
   - Release published with artifact and checksum.
-- **Event Response Stakeholder** — `03-protocol/schemas/events/Event.Response.Stakeholder.schema.json`
+- **Event Response Stakeholder** — `03-protocol/protocol/schemas/events/Event.Response.Stakeholder.schema.json`
   - Stakeholder response to a prior query.
-- **Event SignOff Denied** — `03-protocol/schemas/events/Event.SignOff.Denied.schema.json`
+- **Event SignOff Denied** — `03-protocol/protocol/schemas/events/Event.SignOff.Denied.schema.json`
   - Sign-off denied for a scope.
-- **Event SignOff Granted** — `03-protocol/schemas/events/Event.SignOff.Granted.schema.json`
+- **Event SignOff Granted** — `03-protocol/protocol/schemas/events/Event.SignOff.Granted.schema.json`
   - Sign-off granted for a scope.
-- **Event Validation Report** — `03-protocol/schemas/events/Event.Validation.Report.schema.json`
+- **Event Validation Report** — `03-protocol/protocol/schemas/events/Event.Validation.Report.schema.json`
   - Validation summary for a given scope (manuscript/codex/art/audio/package/state).
-- **Event Waiver Approved** — `03-protocol/schemas/events/Event.Waiver.Approved.schema.json`
+- **Event Waiver Approved** — `03-protocol/protocol/schemas/events/Event.Waiver.Approved.schema.json`
   - A waiver request has been approved.
-- **Event Waiver Denied** — `03-protocol/schemas/events/Event.Waiver.Denied.schema.json`
+- **Event Waiver Denied** — `03-protocol/protocol/schemas/events/Event.Waiver.Denied.schema.json`
   - A waiver request has been denied.
-- **Event Waiver Recorded** — `03-protocol/schemas/events/Event.Waiver.Recorded.schema.json`
+- **Event Waiver Recorded** — `03-protocol/protocol/schemas/events/Event.Waiver.Recorded.schema.json`
   - A waiver request has been recorded.
-- **Feedback Section Rewrite Request** — `03-protocol/schemas/feedback/Feedback.SectionRewrite.Request.schema.json`
+- **Feedback Section Rewrite Request** — `03-protocol/protocol/schemas/feedback/Feedback.SectionRewrite.Request.schema.json`
   - Guided prose rewrite request for a specific narrative section. Downstream tools should obey constraints and ttl cycles.
-- **Feedback Section Rewrite Response** — `03-protocol/schemas/feedback/Feedback.SectionRewrite.Response.schema.json`
+- **Feedback Section Rewrite Response** — `03-protocol/protocol/schemas/feedback/Feedback.SectionRewrite.Response.schema.json`
   - Reply to a rewrite request with updated files and change summary.
-- **Feedback Messages (Section Rewrite)** — `03-protocol/schemas/feedback/feedback.schema.json`
+- **Feedback Messages (Section Rewrite)** — `03-protocol/protocol/schemas/feedback/feedback.schema.json`
   - Union schema covering both Section Rewrite Request and Response messages.
-- **Playback Transcript / Session Log** — `03-protocol/schemas/playback/playback_transcript.schema.json`
+- **Playback Transcript / Session Log** — `03-protocol/protocol/schemas/playback/playback_transcript.schema.json`
   - Deterministic, replayable log of a play session with policy snapshots and codeword diffs.
-- **Project State** — `03-protocol/schemas/state/project_state.schema.json`
+- **Project State** — `03-protocol/protocol/schemas/state/project_state.schema.json`
 - **Render Record (Image/Audio)** — `04-contracts/schemas/art/render_record.schema.json`
   - Rich provenance for a single render (image or audio), intended to be referenced from renders_index or artifacts.
 - **Audio Plan** — `04-contracts/schemas/audio/audio_plan.schema.json`

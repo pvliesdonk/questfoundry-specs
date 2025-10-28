@@ -1,0 +1,34 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.SignOff.Granted.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event SignOff Granted",
+  "description": "Sign-off granted for a scope.",
+  "$comment": "Gate for release; conditions may be attached.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.SignOff.Granted"
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["manuscript", "art", "audio", "package", "all"]
+        },
+        "granted_by": {
+          "type": "string"
+        },
+        "conditions": {
+          "type": "string",
+          "description": "Optional conditions/notes."
+        }
+      },
+      "required": ["message_type", "scope", "granted_by"],
+      "additionalProperties": false
+    }
+  ]
+}

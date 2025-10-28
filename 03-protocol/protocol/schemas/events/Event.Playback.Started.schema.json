@@ -1,0 +1,38 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Playback.Started.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Playback Started",
+  "description": "Narrator/player started at a section.",
+  "$comment": "Hot SoT: emitted after Command.Playback.Start or on auto-start with session creation.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.Playback.Started"
+        },
+        "section_id": {
+          "type": "string",
+          "description": "Starting section id."
+        },
+        "language": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/iso_lang"
+        },
+        "policy_mode": {
+          "type": "string",
+          "enum": ["release", "debug", "deterministic"]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["message_type", "section_id"],
+      "additionalProperties": false
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Release.Published.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Release Published",
+  "description": "Release published with artifact and checksum.",
+  "$comment": "Artifact URL may be internal (e.g., object storage) or public CDN.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.Release.Published"
+        },
+        "version": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/semver"
+        },
+        "artifact_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "artifact_hash": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/checksum"
+        }
+      },
+      "required": ["message_type", "version", "artifact_url"],
+      "additionalProperties": false
+    }
+  ]
+}

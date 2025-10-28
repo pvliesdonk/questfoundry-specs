@@ -1,0 +1,30 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Playback.Completed.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Playback Completed",
+  "description": "Reached a terminal section / end of path.",
+  "$comment": "Include path length for quick audits.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.Playback.Completed"
+        },
+        "end_section_id": {
+          "type": "string"
+        },
+        "path_length": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": ["message_type", "end_section_id"],
+      "additionalProperties": false
+    }
+  ]
+}

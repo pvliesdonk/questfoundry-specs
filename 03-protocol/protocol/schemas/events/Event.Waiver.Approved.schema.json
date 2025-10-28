@@ -1,0 +1,29 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Waiver.Approved.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Waiver Approved",
+  "description": "A waiver request has been approved.",
+  "$comment": "Approver is recorded for auditability.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.Waiver.Approved"
+        },
+        "waiver_id": {
+          "type": "string"
+        },
+        "approved_by": {
+          "type": "string"
+        }
+      },
+      "required": ["message_type", "waiver_id", "approved_by"],
+      "additionalProperties": false
+    }
+  ]
+}

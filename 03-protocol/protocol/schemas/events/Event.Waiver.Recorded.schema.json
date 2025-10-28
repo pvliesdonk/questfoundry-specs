@@ -1,0 +1,36 @@
+{
+  "$id": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/events/Event.Waiver.Recorded.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Waiver Recorded",
+  "description": "A waiver request has been recorded.",
+  "$comment": "Track waivers as temporary exceptions; may require approval.",
+  "allOf": [
+    {
+      "$ref": "https://questfoundry.liesdonk.nl/v1/protocol/schemas/defs/envelope.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "const": "Event.Waiver.Recorded"
+        },
+        "waiver_id": {
+          "type": "string",
+          "description": "ULID of the waiver record."
+        },
+        "title": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "expires_at": {
+          "$ref": "https://questfoundry.liesdonk.nl/v1/schemas/defs/common.json#/$defs/rfc3339"
+        }
+      },
+      "required": ["message_type", "waiver_id", "title", "scope"],
+      "additionalProperties": false
+    }
+  ]
+}
