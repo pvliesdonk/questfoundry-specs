@@ -16,7 +16,7 @@ It treats every creative process as a **set of cooperating AI agents** governed 
 
 ### Library composition
 
-```
+```text
 questfoundry/
   ai/            → adapters & providers (LLM, image, audio)
   roles/         → creative & deterministic agents
@@ -152,20 +152,20 @@ All PN variants read the same manifest and policy; only Debug routes live feedba
 
 **Fast Lane**
 
-```
+```bash
 qf quickstart [--play] [--offline] [--deterministic]
 ```
 
 **Authoring (First-Class Roles)**
 
-```
+```bash
 qf {research|plot|lore|codex|art|render|audio}
 qf {validate|package|binder|wiki|pn}
 ```
 
 **Orchestration**
 
-```
+```bash
 qf loop (lore|art|audio|full)
 qf decide (inbox|respond|signoff|waive)
 qf status | config | cache

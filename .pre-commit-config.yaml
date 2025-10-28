@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: schema-artifacts
+        name: Generate schema artifacts
+        entry: python tools/build_schema_artifacts.py
+        language: system
+        pass_filenames: false

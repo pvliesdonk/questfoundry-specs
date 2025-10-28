@@ -27,7 +27,6 @@
       },
       "required": ["message_type", "from_section_id", "to_section_id", "choice_id"],
       "additionalProperties": false
-      "additionalProperties": false
     }
   ]
 }
