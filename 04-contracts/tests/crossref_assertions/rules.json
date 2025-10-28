@@ -1,0 +1,10 @@
+{
+  "rules": [
+    {
+      "name": "choice_leads_to_section_id",
+      "from": "choices[].leads_to",
+      "to": "sections[].id",
+      "severity": "error"
+    }
+  ]
+}
